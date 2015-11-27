@@ -1,0 +1,107 @@
+<html>
+    <head>
+        <title>Teste</title>
+
+       <!--Importa as bibliotecas necessárias-->
+       <script src="js/jquery-1.11.3.min.js"></script> 
+      <script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>  
+  
+  <style>
+     th{
+        cursor:pointer;
+     }
+  </style>
+  
+    </head>
+    <body>
+        
+ <!-- ------------------------------------------------------------------- -->
+                        <?php
+                            include 'json/parametros.php';
+                            //primeiro select com um contador para saber quantos resultados serão exibidos
+                         
+                            $result_p =  mysql_query("select count(codigo) as total FROM chamados");
+                            $rs =  mysql_fetch_array($result_p) ;
+                            $row_p = $rs["total"];
+                            //quantidade de resultados por página
+                            $qtde_resultados = 25;
+                            $pagina = 1;
+                            //calculando quantidade de páginas
+                            $paginas = ceil($row_p / $qtde_resultados);
+                            // segundo select com os valores já limitados pelo limite no sql
+                            $result =  mysql_query("select * FROM chamados order by dt_abertura desc limit 0 , " . $qtde_resultados );
+                        ?>
+
+                        <!-- Função utilizando JQUERY que faz a paginação dos dados,
+                             Nesta função é enviado, utilizando o médodo post do jquery, três informações a página op.php, são eles
+                             página que se deseja exibir, quantidade de páginas e quantidade de resultado por página
+                             no retorno oconteudo da div dados será trocado pelo conteúdo retornado.  
+                        -->
+                        <script type="text/javascript">
+
+                            function paginar(pagina,paginas, qtde_resultados ){
+                               $("#dados").html("<b><img src='carregando.gif' alt='' /></b>");
+                               $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados}, function(data){$("#dados").html(data);}, "html") ;
+                            }
+                        </script>        
+        
+        
+        
+        
+        
+        
+        <table  id="myTable" >
+            <thead>
+                <tr>                    
+                    <th>id</th>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Sexo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Gustavo</td>
+                    <td>programador.gustavo@gmail.com</td>
+                    <td>Masculino</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Adriane</td>
+                    <td>adri@gmail.com</td>
+                    <td>Feminino</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Bruno</td>
+                    <td>bruno@yahoo.com</td>
+                    <td>Masculino</td>
+                </tr>
+                
+                <?PHP
+                    while ($row = mysql_fetch_array($result)) {
+                              echo '  <tr>
+                                                <td>' . $row['codigo'] . '</td>
+                                                <td>' . $row['solicitante'] . '</td>
+                                                <td>' . $row['solicitante'] . '</td>
+                                                <td>Masculino</td>
+                                            </tr>
+                                         ';
+                                }
+                                
+                        ?>
+                
+                
+            </tbody>
+        </table>
+        
+        <script>
+            $(document).ready(function() 
+            { 
+                $("#myTable").tablesorter(); 
+            } 
+        ); 
+        </script>
+    </body>
+</html>
