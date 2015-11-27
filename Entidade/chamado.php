@@ -1,0 +1,67 @@
+<?php
+namespace Entidade;
+
+class Chamado extends EntidadeAbstrata
+{
+    protected $codigo;
+    protected $queixa;
+    protected $cliente;
+    protected $tipo;
+    protected $pendente;
+    protected $solicitante;
+    
+    protected static $tabela = 'chamado';
+
+    public static function getChave()
+    {
+        return 'codigo';
+    }
+        
+    public static function quantos()
+    {
+        $resultSet = self::getPdo()->query('SELECT COUNT(codigo)  AS total FROM  chamados');
+        
+        $records = $resultSet->fetchColumn(0); 
+            
+        return $records;
+    }
+
+    public static function listar($pagina,$qtde_resultados_por_pagina,$paginas)
+    {
+        // calculando onde o limit deve começar no Select
+        $inicio = $pagina * $qtde_resultados_por_pagina;
+        $pagina++;
+        
+        $pdo = self::getPdo();
+        $pdo->query("SET NAMES 'utf8'"); 
+        
+        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . 's order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        $records = $resultSet->fetchAll();
+    
+        $html = '';
+    
+        $chave = static::getChave();
+    
+        $cadastro = lcfirst(str_replace('Entidade\\','',get_called_class()));
+        
+        
+        foreach($records as $record)
+        {
+//          <tr id="LinhaChamado" onclick="window.location=\'EditarChamado.php?id=' . $row['codigo'] . '\'">                         
+            $html .= <<<BLOCO
+            <tr>
+               <td id="LinkLinhaChamado">
+                  <a href="EditarChamado.php?cadastro=$cadastro&chave={$record[$chave]}"> <span class="glyphicon glyphicon-edit"></span>  {$record[$chave]}</a>
+               </td>
+               <td>{$record['solicitante']}</td>               
+               <td>{$record['queixa']}</td>
+            </tr>
+BLOCO;
+        }
+
+        return $html;
+    }   
+  
+}    
+
+?>

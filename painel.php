@@ -1,6 +1,7 @@
 <?php
 require 'autoload.php';
 require 'seguranca.php';
+use Entidade\Chamado;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -235,7 +236,7 @@ require 'seguranca.php';
                         </div>
                         
                         <div class="alert alert-warning">
-                            <strong>Atenção:</strong> Você têm até o dia /01/01/1111 para ajustar suas férias!
+                            <strong>Atenção:</strong> Você têm até o dia /01/01/2016 para ajustar suas tarefas!
                         </div>
                         
                         <div class="row">

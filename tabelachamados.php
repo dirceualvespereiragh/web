@@ -1,4 +1,8 @@
-
+<?php
+require_once 'autoload.php';
+require_once 'seguranca.php';
+use Entidade\Chamado;
+?>
 <style>
    th{
           cursor: alias;
@@ -31,24 +35,10 @@
                         </thead>
                         <tbody data-link="row" class="rowlink">
                             <?PHP
-                                while ($row = mysql_fetch_array($result)) {
-//                                            <tr id="LinhaChamado" onclick="window.location=\'EditarChamado.php?id=' . $row['codigo'] . '\'"> 
-                                     
-                                    echo '
-                                        <tr>
-                                                <td id="LinkLinhaChamado">
-                                                    <a href="EditarChamado.php?id=' . $row['codigo'] . '"><span class="glyphicon glyphicon-edit"></span>' . $row['codigo'] . '</a>                 
-                                                </td>                                            
-                                            
-                                                
-                                                <td>' . $row['solicitante'] . '</td>
-                                                <td>' . $row['queixa'] . '</td>
-                                            </tr>
-                                         ';
-                                }
-                                echo '
-                        </tbody>';
-                        ?>
+                                echo Chamado::listar($pagina,$qtde_resultados,$paginas);
+                            ?>
+                        </tbody>
+                        
                     </table>
                   
                     </div>

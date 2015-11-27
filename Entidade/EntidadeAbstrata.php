@@ -42,7 +42,10 @@ abstract class EntidadeAbstrata
     {
         if (self::$pdo == NULL)
         {
-            self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'bjj*34jb');
+            #$opcoes = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8'); 
+                      
+            self::$pdo = new \PDO('mysql:dbname=phpnuke; host=localhost', 'root', '');
+        #   self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'bjj*34jb');
         #     self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'apgold');
         }
         return self::$pdo;
