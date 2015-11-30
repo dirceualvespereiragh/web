@@ -86,6 +86,7 @@ BLOCO;
         return $html;
     }
     
+    
     public static function get($chave)
     {
         $nomeChave = static::getChave();
@@ -95,21 +96,40 @@ BLOCO;
         $cadastro = static::$tabela;
     
         if (!is_null($chave)){
-            $resultSet = self::getPdo()->query(
+            $pdo = self::getPdo();
+            $pdo->query("SET NAMES 'utf8'"); 
+            
+            $resultSet = $pdo->query(
                 "SELECT * FROM $cadastro WHERE $nomeChave=$chave");
-    
-            $nome = $resultSet->fetchColumn(1);
+
+            if ($cadastro=="chamados") {
+                 $registro =  $resultSet->fetch();
+                 $queixa      = $registro[4];
+                 $cliente     = $registro[13];
+                 $tipo        = $registro[14];
+                 $pendente    = $registro[15];
+                 $solicitante = $registro[3];     
+                 $responsavel = $registro[2];
+            }
         }
         
         $class = get_called_class();
         $method = 'set' . ucfirst($nomeChave);
     
         $entidade = new $class();
-        $entidade->$method($chave)
-        ->setNome($nome);
-    
+
+        if ($cadastro=="chamados") {
+            $entidade->$method($chave)->setQueixa($queixa);
+            $entidade->$method($chave)->setCliente($cliente);
+            $entidade->$method($chave)->setTipo($tipo);
+            $entidade->$method($chave)->setPendente($pendente);
+            $entidade->$method($chave)->setSolicitante($solicitante);
+            $entidade->$method($chave)->setResponsavel($responsavel);
+            
+        }        
         return $entidade;
     }
+    
     
     /**
      *
@@ -117,6 +137,9 @@ BLOCO;
      */
     public static function gravar(array $dados)
     {
+          throw new \Exception('Não conseguiu gravar o registro');
+        
+        
         $nomeChave = static::getChave();
          
         $nome = isset($dados['nome']) ? $dados['nome'] : NULL;

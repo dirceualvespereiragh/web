@@ -60,8 +60,32 @@ BLOCO;
         }
 
         return $html;
-    }   
-  
-}    
+    }
+    
+    public static function AlimentarComboBox($ItemParaSelecionar)
+    {        
+        $pdo = self::getPdo();
+        $pdo->query("SET NAMES 'utf8'"); 
+        
+        $resultSet = $pdo->query('SELECT codigo,secretaria as nome FROM cliente');       
+
+        $records = $resultSet->fetchAll();
+    
+        $html = '<option>Selecione o Cliente</option>'; 
+    
+        foreach($records as $record)
+        {   
+           if  ( $record['nome'] == $ItemParaSelecionar ) {
+              $html .= "'<option value={$record['nome']}  selected> {$record['nome']} </option>'"; 
+           } else {
+              $html .= "'<option value={$record['nome']}  > {$record['nome']} </option>'"; 
+           }
+            
+        }
+        
+      
+        return $html;
+     }  
+}
 
 ?>

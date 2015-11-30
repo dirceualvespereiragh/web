@@ -6,24 +6,17 @@ require 'seguranca.php';
 <html>
  <head>
          <title> Chamado Novo </title>
-         
-         <!-- define a viewpot --->
-         
-         <!--"width=device-width Largura do nosso dispositivo --->
          <meta name="viewport" content="width=device-width, initial-scale=1.0">
          <meta charset="utf-8">
-         <!-- adiciona CSS do BootStrap -->
          <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> 
-         
-         <!-- css personalizado -->
          <link href="css/estilo.css" rel="stylesheet" media="screen">
-         
-    </head>
+ </head>
     
-    <body>
+ <body>
         
 <div id="miolo" class="conteudo_painel_int">     
 <?php
+    use Entidade\Chamados;
     $class = 'Entidade\\' .ucfirst($_GET['cadastro']);
     $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
     $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
@@ -32,59 +25,62 @@ require 'seguranca.php';
         <div class="row">
                 <div class="col-xs-12">
                     <!-- <form class="form-inline"> -->
-                    <form class="form-horizontal" role="form" action="painel.php"   method="POST"> 
-                        
+                    
+                    <form class="form-horizontal" role="form" action="Controlador/ControladorEntidade.php?
+metodo=gravar&cadastro=chamados"   method="POST"> 
                         <div class="forrm-group"> <!--  form-group-lg um pouco maior -->
                             <label for="cliente" class="col-xs-2 control-label">Cliente:</label>
                             <div class="col-xs-10">
                                 <select id="cbClientes" name="cbClientes" class="form-control">
-                                    <option>Aguarde carregando....</option>
+                                    <?PHP
+                                       echo Chamados::AlimentarComboBox($entidade->getCliente());
+                                    ?>
                                 </select> 
                                 <span class="help-block">.</span>
                             </div>
                         </div>
-
                         
                         <div class="forrm-group">
                             <label for="solicitante" class="col-xs-2  control-label">Solicitante:</label>
                             <div class="col-xs-10">
-                               <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Solicitante:"  value="<?=$entidade->getSolicitante()?>"    />
+                               <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Solicitante:"  value="<?=$entidade->getSolicitante() ?>"    />
                                <span class="help-block">.</span>
                             </div>
                         </div>
+                        
                         
                         <div class="forrm-group"> 
                             <label for="tipo" class="col-xs-2 control-label">Tipo de Chamado:</label>
                             <div class="col-xs-10">
                                 <select class="form-control" id="tipo" name="tipo">
-                                    <option value="Atividade Interna">1 - Atividade Interna</option>
-                                    <option value="Contabilidade">2 - Contabilidade</option>
-                                    <option value="Financeiro">3 - Financeiro </option>
-                                    <option value="Folha">4 - Folha</option>
-                                    <option value="SagAP">5 - SagAP</option>
-                                    <option value="NFE">6 - NFE</option>
-                                    <option value="Programa de Terceiros">7 - Programa de Terceiros</option>
-                                    <option value="Outros">8 - Outros</option>
+            <option value="Atividade Interna" <?php if($entidade->getTipo() == 'Atividade Interna'){ echo 'selected'; }?>>1 - Atividade Interna</option>
+            <option value="Contabilidade" <?php if($entidade->getTipo() == 'Contabilidade'){ echo 'selected'; }?>>2 - Contabilidade</option>
+            <option value="Financeiro" <?php if($entidade->getTipo() == 'Financeiro'){ echo 'selected'; }?> >3 - Financeiro </option>
+            <option value="Folha" <?php if($entidade->getTipo() == 'Folha'){ echo 'selected'; }?>>4 - Folha</option>
+            <option value="SagAP" <?php if($entidade->getTipo() == 'SagAP'){ echo 'selected'; }?> >5 - SagAP </option>
+            <option value="NFE" <?php if($entidade->getTipo() == 'NFE'){ echo 'selected'; }?>>6 - NFE</option>
+            <option value="Programa de Terceiros" <?php if($entidade->getTipo() == 'Programa de Terceiros'){ echo 'selected'; }?>>7 - Programa de Terceiros</option>
+            <option value="Outros" <?php if($entidade->getTipo() == 'Outros'){ echo 'selected'; }?>>8 - Outros</option>
                                 </select> 
                             </div>
                         </div>
                         
                         <div class="form-group">
                             <label for="queixa">Descrição do Chamado:</label>
-                            <textarea class="form-control" rows="6" id="queixa" name="queixa"></textarea>
+                                                                    
+          <textarea class="form-control" rows="6" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?>" ></textarea>
                         </div>
-                        
                         
                         <div class="forrm-group"> 
                             <label for="Pendente" >Pendente com:</label>
                             <div >
-                                <select class="form-control" id="pendente" name="pendente">
-                                    <option value="Vagner">1 - Vagner</option>
-                                    <option value="Gilson">2 - Gilson</option>
-                                    <option value="Roberto">3 - Roberto</option>
-                                    <option value="Dirceu">4 - Dirceu</option>
-                                    <option value="Solicitante">5 - Solicitante</option>
-                                    <option value="Terceiros">6 - Terceiros</option>
+                                <select id="cbpendente" name="cbpendente" class="form-control">
+            <option value="Vagner"<?php if($entidade->getPendente() == 'Vagner'){ echo 'selected'; }?>>1 - Vagner</option>
+            <option value="Gilson"<?php if($entidade->getPendente() == 'Gilson'){ echo 'selected'; }?>>2 - Gilson</option>
+            <option value="Roberto"<?php if($entidade->getPendente() == 'Roberto'){ echo 'selected'; }?>>3 - Roberto</option>
+            <option value="Dirceu"<?php if($entidade->getPendente() == 'Dirceu'){ echo 'selected'; }?>>4 - Dirceu</option>
+            <option value="Solicitante"<?php if($entidade->getPendente() == 'Solicitante'){ echo 'selected'; }?>>5 - Solicitante</option>
+            <option value="Terceiros"<?php if($entidade->getPendente() == 'Terceiros'){ echo 'selected'; }?>>6 - Terceiros</option>
                                 </select> 
                             </div>
                         </div>                        
@@ -104,9 +100,9 @@ require 'seguranca.php';
                                 </label>
                             </div>
                             <div class="form-group form-group-lg">
-                                <label for="tipo" class="col-xs-2 control-label"> Resposnável :</label>
+                                <label for="tipo" class="col-xs-2 control-label">Registrado por:</label>
                                 <div class="col-xs-10">
-                                   <p class="form-control-static"> <?= $_SESSION['usuario']?> </p>
+                                   <p class="form-control-static">  <?=$entidade->getResponsavel() ?> </p>
                                 </div>
                             </div>
                         </div>
@@ -116,7 +112,8 @@ require 'seguranca.php';
                             <div class="col-md-12">
                              <div class="form-group form-action">
                                <div class="form-action">
-                                  <button type="submit" name="SalvarChamado" value="SalvarChamado" class="btn btn-primary">Salvar</button>
+                                   <?php $teste='12345'; ?>
+                                  <button type="submit" name="EditarChamado" value="EditarChamado" class="btn btn-primary">Salvar</button>
                                   <a href="painel.php." class="btn btn-default">Cancelar</a>
                                </div>  
                                 </div>
@@ -129,20 +126,7 @@ require 'seguranca.php';
                     
 </div>
     
- <!--                       <div class="forrm-group"> 
-                            <label for="Pendente" >Pendente com:</label>
-                            <div >
-                                <select id="cbPendente" name="cbPendente" class="form-control">
-                                    <option value="Vagner">1 - Vagner</option>
-                                    <option value="Gilson">2 - Gilson</option>
-                                    <option value="Roberto">3 - Roberto</option>
-                                    <option value="Dirceu">4 - Dirceu</option>
-                                    <option value="Solicitante">5 - Solicitante</option>
-                                    <option value="Terceiros">6 - Terceiros</option>
-                                </select> 
-                            </div>
-                        </div>    -->                    
-    </body>
+</body>
 </html>    
         
         
@@ -157,7 +141,6 @@ require 'seguranca.php';
             <div class="panel panel-primary">  
                 <div class="panel-heading">Cadastro de Clientes</div>            
                 <div class="panel-body">
-
                     <form name="f_projetos" method="post" class="form-horizontal" role="form">
                          <input type="hidden" name="id" value="<?php echo $Cliente['id']; ?>" />
                         <div class="form-group">
@@ -191,10 +174,4 @@ require 'seguranca.php';
 
                           <input type="submit"  class="btn btn-primary" value="<?php echo ($Cliente['id'] >0) ? 'Atualizar' : 'Cadastrar'; ?>" class="btn btn-default">
                         </div>
-
-            </div> <!--fecha o panel body-->
-            </div><!--fecha o panel primary-->
-            </div>
-            </form>
-            </div><!--fecha o col-mod-6-->
 -->
