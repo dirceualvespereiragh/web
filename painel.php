@@ -1,7 +1,7 @@
 <?php
 require 'autoload.php';
 require 'seguranca.php';
-use Entidade\Chamado;
+use Entidade\Chamados;
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -343,10 +343,10 @@ use Entidade\Chamado;
 		    $("#LinkLinhaChamado a").click(function( e ){
 			   e.preventDefault();
 			   var href = $( this ).attr('href');
+    
 			   $("#miolo").load( href +" #miolo");
-               alert($( this ).attr('href'));
-                
-                    
+//               alert($( this ).attr('href'));
+    
                     $('#cbPendente').html('<span class="mensagem">Aguarde, carregando ...</span>');
                     $.getJSON('json/clientes.php', function (dados){ 
                         if (dados.length > 0){ 

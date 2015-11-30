@@ -2,6 +2,7 @@
 require 'autoload.php';
 require 'seguranca.php';
 ?>
+
 <html>
  <head>
          <title> Chamado Novo </title>
@@ -22,8 +23,11 @@ require 'seguranca.php';
     <body>
         
 <div id="miolo" class="conteudo_painel_int">     
-    
-
+<?php
+    $class = 'Entidade\\' .ucfirst($_GET['cadastro']);
+    $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
+    $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
+?>
     
         <div class="row">
                 <div class="col-xs-12">
@@ -39,11 +43,12 @@ require 'seguranca.php';
                                 <span class="help-block">.</span>
                             </div>
                         </div>
+
                         
                         <div class="forrm-group">
                             <label for="solicitante" class="col-xs-2  control-label">Solicitante:</label>
                             <div class="col-xs-10">
-                               <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Solicitante:" />
+                               <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Solicitante:"  value="<?=$entidade->getSolicitante()?>"    />
                                <span class="help-block">.</span>
                             </div>
                         </div>

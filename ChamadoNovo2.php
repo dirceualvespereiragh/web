@@ -1,11 +1,19 @@
 <?php
 require 'autoload.php';
 require 'seguranca.php';
+$class = 'Entidade\\' .ucfirst($_GET['cadastro']);
+
+$entidade = call_user_func(array($class,'get'),
+isset($_GET['chave']) ? $_GET['chave'] : NULL); 
+
+$method = 'get' . ucfirst(
+	call_user_func(array($class,'getChave'))
+);
+
 ?>
 <html>
  <head>
-         <title> Chamado Novo </title>
-         
+
          <!-- define a viewpot --->
          
          <!--"width=device-width Largura do nosso dispositivo --->
@@ -31,6 +39,8 @@ require 'seguranca.php';
     
 <div class="row">
                 <div class="col-xs-12">
+                             <p>Inclusão de <?=$_GET['cadastro']?></p>
+
                     <!-- <form class="form-inline"> -->
                     <form class="form-horizontal" role="form" action="painel.php"   method="POST"> 
                         
@@ -38,7 +48,7 @@ require 'seguranca.php';
                             <label for="cliente" class="col-xs-2 control-label">Cliente:</label>
                             <div class="col-xs-10">
                                 <select id="cbClientes" name="cbClientes" class="form-control">
-                                    <option>Aguarde carregando....</option>
+                                    <option>Aguarde Carregando....</option>
                                 </select> 
                                 <span class="help-block">.</span>
                             </div>

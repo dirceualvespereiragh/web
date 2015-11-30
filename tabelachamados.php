@@ -1,7 +1,7 @@
 <?php
 require_once 'autoload.php';
 require_once 'seguranca.php';
-use Entidade\Chamado;
+use Entidade\Chamados;
 ?>
 <style>
    th{
@@ -35,7 +35,7 @@ use Entidade\Chamado;
                         </thead>
                         <tbody data-link="row" class="rowlink">
                             <?PHP
-                                echo Chamado::listar($pagina,$qtde_resultados,$paginas);
+                                echo Chamados::listar($pagina,$qtde_resultados,$paginas);
                             ?>
                         </tbody>
                         

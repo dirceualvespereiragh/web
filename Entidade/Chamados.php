@@ -1,7 +1,7 @@
 <?php
 namespace Entidade;
 
-class Chamado extends EntidadeAbstrata
+class Chamados extends EntidadeAbstrata
 {
     protected $codigo;
     protected $queixa;
@@ -10,7 +10,7 @@ class Chamado extends EntidadeAbstrata
     protected $pendente;
     protected $solicitante;
     
-    protected static $tabela = 'chamado';
+    protected static $tabela = 'chamados';
 
     public static function getChave()
     {
@@ -35,7 +35,7 @@ class Chamado extends EntidadeAbstrata
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
         
-        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . 's order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
         $records = $resultSet->fetchAll();
     
         $html = '';
