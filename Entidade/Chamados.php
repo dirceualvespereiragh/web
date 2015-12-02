@@ -76,9 +76,9 @@ BLOCO;
         foreach($records as $record)
         {   
            if  ( $record['nome'] == $ItemParaSelecionar ) {
-              $html .= "'<option value={$record['nome']}  selected> {$record['nome']} </option>'"; 
+              $html .= "'<option value='{$record['nome']}'  selected> {$record['nome']} </option>'"; 
            } else {
-              $html .= "'<option value={$record['nome']}  > {$record['nome']} </option>'"; 
+              $html .= "'<option value='{$record['nome']}'  > {$record['nome']} </option>'"; 
            }
             
         }

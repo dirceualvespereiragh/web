@@ -25,9 +25,8 @@ require 'seguranca.php';
         <div class="row">
                 <div class="col-xs-12">
                     <!-- <form class="form-inline"> -->
-                    
                     <form class="form-horizontal" role="form" action="Controlador/ControladorEntidade.php?
-metodo=gravar&cadastro=chamados"   method="POST"> 
+metodo=gravar&cadastro=chamados"   method="post"> 
                         <div class="forrm-group"> <!--  form-group-lg um pouco maior -->
                             <label for="cliente" class="col-xs-2 control-label">Cliente:</label>
                             <div class="col-xs-10">
@@ -68,7 +67,7 @@ metodo=gravar&cadastro=chamados"   method="POST">
                         <div class="form-group">
                             <label for="queixa">Descrição do Chamado:</label>
                                                                     
-          <textarea class="form-control" rows="6" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?>" ></textarea>
+          <textarea class="form-control" rows="6" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?>  </textarea>
                         </div>
                         
                         <div class="forrm-group"> 
@@ -107,12 +106,13 @@ metodo=gravar&cadastro=chamados"   method="POST">
                             </div>
                         </div>
                         
+                        <input type="hidden" name="chave" value=  <?=$entidade->getCodigo() ?> > 
+                        
                           <hr />
                           <div  class="row">
                             <div class="col-md-12">
                              <div class="form-group form-action">
                                <div class="form-action">
-                                   <?php $teste='12345'; ?>
                                   <button type="submit" name="EditarChamado" value="EditarChamado" class="btn btn-primary">Salvar</button>
                                   <a href="painel.php." class="btn btn-default">Cancelar</a>
                                </div>  

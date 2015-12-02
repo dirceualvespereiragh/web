@@ -137,22 +137,37 @@ BLOCO;
      */
     public static function gravar(array $dados)
     {
-          throw new \Exception('Não conseguiu gravar o registro');
-        
         
         $nomeChave = static::getChave();
-         
-        $nome = isset($dados['nome']) ? $dados['nome'] : NULL;
         $chave = (integer) (isset($dados['chave']) ? $dados['chave'] : NULL);
-        
         $cadastro = static::$tabela;
          
+        if ($cadastro=="chamados") {
+            $cliente     = isset($dados['cbClientes']) ? $dados['cbClientes'] : NULL; 
+            $queixa      = isset($dados['queixa']) ? $dados['queixa'] : NULL; 
+            $tipo        = isset($dados['tipo']) ? $dados['tipo'] : NULL; 
+            $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
+            if (! is_null($cliente)) {
+                if (!empty($chave)) {
+                    $sql =
+                    "UPDATE $cadastro SET 
+                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante'
+                     WHERE $nomeChave=$chave";
+                }
+
+                if (self::getPdo()->exec($sql) === false) {
+                    throw new \Exception('Não conseguiu gravar o registro' . $sql );
+
+                }    
+                      
+            }
+        }
         if (! is_null($nome)) {
-            $sql = "INSERT INTO $cadastro(nome) values ('$nome')";
+            $sql = "INSERT INTO $cadastro (nome) values ('$nome')";
              
             if (!empty($chave)) {
                 $sql =
-                "UPDATE $cadastro SET nome='$nome'
+                "UPDATE $cadastro SET queixa ='$queixa'
                 WHERE $nomeChave=$chave";
             }
             
