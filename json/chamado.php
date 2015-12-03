@@ -1,5 +1,5 @@
 <?php
-   header("Content-Type: application/json; charset=8859-1");
+   header("Content-Type: application/json; charset=UTF-8");
    require_once('conexao.php'); 
    $pdo = Conectar(); 
    $codigo =  $_GET['codigo'];

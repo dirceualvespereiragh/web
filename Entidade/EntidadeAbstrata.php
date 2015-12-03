@@ -42,7 +42,6 @@ abstract class EntidadeAbstrata
     {
         if (self::$pdo == NULL)
         {
-            #$opcoes = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8'); 
                       
             self::$pdo = new \PDO('mysql:dbname=phpnuke; host=localhost', 'root', '');
         #   self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'bjj*34jb');
@@ -147,15 +146,18 @@ BLOCO;
             $queixa      = isset($dados['queixa']) ? $dados['queixa'] : NULL; 
             $tipo        = isset($dados['tipo']) ? $dados['tipo'] : NULL; 
             $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
+            $pendente    = isset($dados['cbpendente']) ? $dados['cbpendente'] : NULL; 
             if (! is_null($cliente)) {
                 if (!empty($chave)) {
                     $sql =
                     "UPDATE $cadastro SET 
-                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante'
+                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente'
                      WHERE $nomeChave=$chave";
                 }
+                $pdo = self::getPdo();
+                $pdo->query("SET NAMES 'utf8'"); 
 
-                if (self::getPdo()->exec($sql) === false) {
+                if ($pdo->exec($sql) === false) {
                     throw new \Exception('Não conseguiu gravar o registro' . $sql );
 
                 }    
