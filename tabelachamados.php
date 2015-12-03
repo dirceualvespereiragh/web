@@ -28,7 +28,7 @@ use Entidade\Chamados;
                     <table id="TabelaChamados" class="table table-bordered table-hover"> 
                         <thead>
                             <tr>
-                                <th>Código</th>
+                                <th>Código  </th>
                                 <th>Solicitante</th>
                                 <th>Queixa</th>
                             </tr>

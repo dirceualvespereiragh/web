@@ -148,11 +148,18 @@ BLOCO;
             $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
             $pendente    = isset($dados['cbpendente']) ? $dados['cbpendente'] : NULL; 
             if (! is_null($cliente)) {
-                if (!empty($chave)) {
+                if (!empty($chave))  {
+                    
                     $sql =
                     "UPDATE $cadastro SET 
                      nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente'
                      WHERE $nomeChave=$chave";
+                } else {
+                    $sql =
+                    "INSERT INTO $cadastro 
+                     (nome_cons , queixa , estatistica , solicitante , pendente , dt_abertura) 
+                     VALUES
+                     ( '$cliente','$queixa','$tipo','$solicitante','$pendente',now())";
                 }
                 $pdo = self::getPdo();
                 $pdo->query("SET NAMES 'utf8'"); 

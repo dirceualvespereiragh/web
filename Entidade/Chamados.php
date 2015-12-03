@@ -29,8 +29,8 @@ class Chamados extends EntidadeAbstrata
     public static function listar($pagina,$qtde_resultados_por_pagina,$paginas)
     {
         // calculando onde o limit deve começar no Select
-        $inicio = $pagina * $qtde_resultados_por_pagina;
-        $pagina++;
+        $inicio = ($pagina-1) * $qtde_resultados_por_pagina;
+        
         
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
@@ -47,7 +47,6 @@ class Chamados extends EntidadeAbstrata
         
         foreach($records as $record)
         {
-//          <tr id="LinhaChamado" onclick="window.location=\'EditarChamado.php?id=' . $row['codigo'] . '\'">                         
             $html .= <<<BLOCO
             <tr>
                <td id="LinkLinhaChamado">
@@ -67,7 +66,7 @@ BLOCO;
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
         
-        $resultSet = $pdo->query('SELECT codigo,secretaria as nome FROM cliente');       
+        $resultSet = $pdo->query('SELECT codigo,secretaria as nome FROM cliente order by secretaria');       
 
         $records = $resultSet->fetchAll();
     

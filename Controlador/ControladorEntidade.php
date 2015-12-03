@@ -10,7 +10,7 @@ class ControladorEntidade
 {
     private $requisicao = NULL;
     private $dados = NULL;
-    private $destino = '../aplicativos.php';
+    private $destino = '../painel.php';
     
     public function despachar(array $requisicao, array $dados)
     {

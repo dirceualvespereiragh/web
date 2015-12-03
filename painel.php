@@ -49,26 +49,25 @@ use Entidade\Chamados;
            sleep(1); 
            $pdo = null;	          
       }  
-      if (isset($_POST['EditarChamado'])) { 
-           $tipo        = $_POST['tipo'];
-           $queixa      = $_POST['queixa'];
-           $cliente     = $_POST['cbClientes'];
-           $pendente    = $_POST['cbpendente'];
-           $solicitante = $_POST['solicitante'];
-           $sql = "UPDATE chamados ";
-           $sql = $sql . "(SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA) VALUES";
-           $sql = $sql . "(' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ') ";
-           $sql = $sql . "WHERE CODIGO = " . 
-           require_once('json/conexao.php'); 
-           $pdo = Conectar(); 
-           $stm = $pdo->prepare($sql); 
-           //$stm->execute(); 
-          echo $sql;
-          echo $_POST[$teste] ;
-           sleep(1); 
-           $pdo = null;	          
-
-      }
+      //if (isset($_POST['EditarChamado'])) { 
+        //   $tipo        = $_POST['tipo'];
+        //   $queixa      = $_POST['queixa'];
+        //   $cliente     = $_POST['cbClientes'];
+        //   $pendente    = $_POST['cbpendente'];
+        //   $solicitante = $_POST['solicitante'];
+        //   $sql = "UPDATE  chamados ";
+        //   $sql = $sql . "(SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA) VALUES";
+        //   $sql = $sql . "(' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ') ";
+        //   $sql = $sql . "WHERE CODIGO = " . 
+        //   require_once('json/conexao.php'); 
+        //   $pdo = Conectar(); 
+        //   $stm = $pdo->prepare($sql); 
+        //   //$stm->execute(); 
+        //  echo $sql;
+        //  echo $_POST[$teste] ;
+        //   sleep(1); 
+        //   $pdo = null;	          
+      //}
 ?>  
       
       
@@ -112,10 +111,20 @@ use Entidade\Chamados;
             <!-- menu navegação lateral -->            
             <div class="col-sm-2">
                 <div class="panel panel-primary">
+                    <div id="menuchamados" role="tab" class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="EditarChamado.php?cadastro=chamados&chave=0">
+                                <span class="glyphicon glyphicon-file"></span>
+                                Chamados
+                            </a>
+                        </h4>
+                    </div>
+                </div>                
+                
+<!--                <div class="panel panel-primary">
                     <div id="colGroup1" role="tab" class="panel-heading">
                         <h4 class="panel-title">
                             <a href="#colListGroup1" aria-controls="colListGroup1" aria-expanded="false" data-toggle="collapse">
-                                
                                 <span class="glyphicon glyphicon-file"></span>
                                 Gerenciar Chamados
                             </a>
@@ -124,12 +133,13 @@ use Entidade\Chamados;
                     <div role="tabpanel" class="panel-collapse collapse" id="colListGroup1" aria-expanded="false">
                         <ul id="menuchamados" class="list-group">
                             <li  class="list-group-item"><a href="ChamadoNovo2.php">Criar</a></li>
-                            <li class="list-group-item"><a href="#">Alterar</a></li>
+                            
+                            <li class="list-group-item"><a href="EditarChamado.php?cadastro=chamados&chave=0">Alterar</a></li>
                             <li class="list-group-item"><a href="#">Excluir</a></li>
                         </ul>
                         <div class="panel-footer"></div>
-                    </div>
-                </div>
+                    </div> 
+                </div> -->
                 <div class="panel panel-primary">
                     <div id="colGroup1" role="tab" class="panel-heading">
                         <h4 class="panel-title">
@@ -206,9 +216,6 @@ use Entidade\Chamados;
                         
                         <div id="miolo">
                             
-
-                            
-                            
                         <?php
                             include 'json/parametros.php';
                             //primeiro select com um contador para saber quantos resultados serão exibidos
@@ -222,7 +229,7 @@ use Entidade\Chamados;
                             //calculando quantidade de páginas
                             $paginas = ceil($row_p / $qtde_resultados);
                             // segundo select com os valores já limitados pelo limite no sql
-                            $result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
+                            //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
                         ?>
 
                         <!-- Função utilizando JQUERY que faz a paginação dos dados,
@@ -233,7 +240,7 @@ use Entidade\Chamados;
                         <script type="text/javascript">
 
                             function paginar(pagina,paginas, qtde_resultados ){
-                               $("#dados").html("<b><img src='carregando.gif' alt='' /></b>");
+                               $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
                                $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados}, function(data){$("#dados").html(data);}, "html") ;
                             }
                         </script>
@@ -243,6 +250,7 @@ use Entidade\Chamados;
                                 <?php
                                    include 'tabelachamados.php';
                                    include 'indice.php';
+                                   $pagina++;    
                                 ?>
                             </div>
                         </fieldset>
@@ -332,28 +340,26 @@ use Entidade\Chamados;
 			   e.preventDefault();
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
-                
-                    
-                    $('#cbClientes').html('<span class="mensagem">Aguarde, carregando ...</span>');
-                    $.getJSON('json/clientes.php', function (dados){ 
-                        if (dados.length > 0){ 
-                            var option = '<option>Selecione o Cliente</option>'; 
-                            $.each(dados, function(i, obj){ 
-                                option += '<option value="'+obj.secretaria+'">'+obj.secretaria+'</option>'; 
-                            }) 
-                            $('#mensagem').html('<span class="mensagem">Total de clientes encontrados.:'+dados.length+'</span>'); 
-                            $('#cbClientes').html(option).show(); 
-                        }else{ 
-                            Reset(); 
-                            $('#mensagem').html('<span class="mensagem">Não foram encontrados clientes!</span>'); 
-                        } 
-                    }) 
-                })
+                //    $('#cbClientes').html('<span class="mensagem">Aguarde, carregando ...</span>');
+                //    $.getJSON('json/clientes.php', function (dados){ 
+                //        if (dados.length > 0){ 
+                //            var option = '<option>Selecione o Cliente</option>'; 
+                //            $.each(dados, function(i, obj){ 
+                //                option += '<option value="'+obj.secretaria+'">'+obj.secretaria+' </option>'; 
+                //            }) 
+                //            $('#mensagem').html('<span class="mensagem">Total de clientes encontrados.:'+dados.length+'</span>'); 
+                //            $('#cbClientes').html(option).show(); 
+                //        }else{ 
+                //            Reset(); 
+                //            $('#mensagem').html('<span class="mensagem">Não foram encontrados clientes!</span>'); 
+                //        } 
+            }) 
+         })
 
-                function Reset(){ 
-                    $('#cbClientes').empty().append('<option>Carregar Cientes</option>>');
-                } 
-            }); 
+         //       function Reset(){ 
+         //            $('#cbClientes').empty().append('<option>Carregar Cientes</option>>');
+         //        } 
+         //    }); 
         </script>                         
       
       
@@ -363,15 +369,8 @@ use Entidade\Chamados;
 			   e.preventDefault();
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
-                
-//          c
-//               }) 
-
             })
 
-            function Reset(){ 
-                    $('#cbClientes').empty().append('<option>Carregar Cientes</option>>');
-            } 
         }); 
        </script>    
     
