@@ -31,7 +31,6 @@ class Chamados extends EntidadeAbstrata
         // calculando onde o limit deve começar no Select
         $inicio = ($pagina-1) * $qtde_resultados_por_pagina;
         
-        
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
         
@@ -48,6 +47,18 @@ class Chamados extends EntidadeAbstrata
         foreach($records as $record)
         {
             $html .= <<<BLOCO
+            <script type="text/javascript">
+	                     $(document).ready(function(){
+		                 $("#LinkLinhaChamado a").click(function( e ){
+                			   e.preventDefault();
+			                   var href = $( this ).attr('href');
+                			   $("#miolo").load( href +" #miolo");
+                         })
+
+                     }); 
+            </script>    
+
+            
             <tr>
                <td id="LinkLinhaChamado">
                   <a href="EditarChamado.php?cadastro=$cadastro&chave={$record[$chave]}"> <span class="glyphicon glyphicon-edit"></span>  {$record[$chave]}</a>

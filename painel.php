@@ -32,23 +32,23 @@ use Entidade\Chamados;
 <!-- pesquisar no PHP [code]   [/code] -->
       
 <?php      
-      if (isset($_POST['SalvarChamado'])) { 
-           $tipo        = $_POST['tipo'];
-           $queixa      = $_POST['queixa'];
-           $cliente     = $_POST['cbClientes'];
-           $pendente    = $_POST['pendente'];
-           $solicitante = $_POST['solicitante'];
-           $responsavel = $_SESSION['usuario'] ;
-           $sql = "INSERT INTO chamados ";
-           $sql = $sql . "(RESPONSAVEL, SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA, DT_ABERTURA) VALUES";
-           $sql = $sql . "(' $pendente ',' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ', now()) ";
-           require_once('json/conexao.php'); 
-           $pdo = Conectar(); 
-           $stm = $pdo->prepare($sql); 
-           $stm->execute(); 
-           sleep(1); 
-           $pdo = null;	          
-      }  
+//      if (isset($_POST['SalvarChamado'])) { 
+//           $tipo        = $_POST['tipo'];
+//           $queixa      = $_POST['queixa'];
+//           $cliente     = $_POST['cbClientes'];
+//           $pendente    = $_POST['pendente'];
+//           $solicitante = $_POST['solicitante'];
+//           $responsavel = $_SESSION['usuario'] ;
+//           $sql = "INSERT INTO chamados ";
+//           $sql = $sql . "(RESPONSAVEL, SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA, DT_ABERTURA) VALUES";
+//           $sql = $sql . "(' $pendente ',' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ', now()) ";
+//           require_once('json/conexao.php'); 
+//           $pdo = Conectar(); 
+//           $stm = $pdo->prepare($sql); 
+//           $stm->execute(); 
+//           sleep(1); 
+//           $pdo = null;	          
+//      }  
       //if (isset($_POST['EditarChamado'])) { 
         //   $tipo        = $_POST['tipo'];
         //   $queixa      = $_POST['queixa'];
@@ -340,44 +340,11 @@ use Entidade\Chamados;
 			   e.preventDefault();
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
-                //    $('#cbClientes').html('<span class="mensagem">Aguarde, carregando ...</span>');
-                //    $.getJSON('json/clientes.php', function (dados){ 
-                //        if (dados.length > 0){ 
-                //            var option = '<option>Selecione o Cliente</option>'; 
-                //            $.each(dados, function(i, obj){ 
-                //                option += '<option value="'+obj.secretaria+'">'+obj.secretaria+' </option>'; 
-                //            }) 
-                //            $('#mensagem').html('<span class="mensagem">Total de clientes encontrados.:'+dados.length+'</span>'); 
-                //            $('#cbClientes').html(option).show(); 
-                //        }else{ 
-                //            Reset(); 
-                //            $('#mensagem').html('<span class="mensagem">Não foram encontrados clientes!</span>'); 
-                //        } 
             }) 
          })
 
-         //       function Reset(){ 
-         //            $('#cbClientes').empty().append('<option>Carregar Cientes</option>>');
-         //        } 
-         //    }); 
         </script>                         
       
-      
-       <script type="text/javascript">
-	     $(document).ready(function(){
-		    $("#LinkLinhaChamado a").click(function( e ){
-			   e.preventDefault();
-			   var href = $( this ).attr('href');
-			   $("#miolo").load( href +" #miolo");
-            })
-
-        }); 
-       </script>    
-    
-                
-                
   </body>
 </html>
-
-
 

@@ -12,15 +12,15 @@ require 'seguranca.php';
          <link href="css/estilo.css" rel="stylesheet" media="screen">
  </head>
     
- <body>
+ <!-- <body> -->
         
 <div id="miolo" class="conteudo_painel_int">     
-<?php
-    use Entidade\Chamados;
-    $class = 'Entidade\\' .ucfirst($_GET['cadastro']);
-    $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
-    $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
-?>
+        <?php
+            use Entidade\Chamados;
+            $class = 'Entidade\\' .ucfirst($_GET['cadastro']);
+            $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
+            $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
+        ?>
     
         <div class="row">
                 <div class="col-xs-12">
@@ -114,7 +114,7 @@ metodo=gravar&cadastro=chamados"   method="post">
                              <div class="form-group form-action">
                                <div class="form-action">
                                   <button type="submit" name="EditarChamado" value="EditarChamado" class="btn btn-primary">Salvar</button>
-                                  <a href="painel.php." class="btn btn-default">Cancelar</a>
+                                  <a href="painel.php" class="btn btn-default">Cancelar</a>
                                </div>  
                                 </div>
                             </div>
@@ -126,7 +126,7 @@ metodo=gravar&cadastro=chamados"   method="post">
                     
 </div>
     
-</body>
+<!-- </body> -->
 </html>    
         
         

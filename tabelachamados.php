@@ -14,7 +14,7 @@ use Entidade\Chamados;
 </style>
 
 <script type="text/javascript">
-        $(document).ready(function(){ 
+        $(document).ready(function( e){ 
             $("#TabelaChamados").tablesorter(); 
         }  ); 
 </script>

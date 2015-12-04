@@ -1,9 +1,9 @@
-<style type="text/css">
+<!-- <style type="text/css">
             #paginacao{font-family: Verdana, Arial, Helvetica; font-size: 14px;  }
             .pgoff {color: #FF0000; text-decoration: none}
             a.pg {color: #003366; text-decoration: none}
             a:hover.pg { color: #0066cc; text-decoration:underline}
-        </style>
+        </style> -->
 <?php
  
 echo "<div id='paginacao'>";
@@ -67,5 +67,5 @@ echo '<ul class="pagination">';
         echo "<font  color=#CCCCCC>próximo &raquo;</font>";
     }
 echo '</ul>'; 
-echo "<div><br>";
+echo "<div>";
 ?>
