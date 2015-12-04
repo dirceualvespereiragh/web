@@ -27,7 +27,7 @@ class Chamados extends EntidadeAbstrata
         return $records;
     }
 
-    public static function listar($pagina,$qtde_resultados_por_pagina,$paginas)
+    public static function listar($pagina,$qtde_resultados_por_pagina,$paginas,$posicao)
     {
         // calculando onde o limit deve começar no Select
         $inicio = ($pagina-1) * $qtde_resultados_por_pagina;
@@ -35,7 +35,8 @@ class Chamados extends EntidadeAbstrata
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
         
-        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' WHERE POSICAO = ' . $posicao . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        
         $records = $resultSet->fetchAll();
     
         $html = '';

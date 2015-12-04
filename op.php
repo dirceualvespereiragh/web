@@ -4,6 +4,7 @@
   $qtde_resultados = $_POST['qtde_resultados'];
   $paginas = $_POST['paginas'];
   $pagina++;
+  $posicao =  $_POST['posicao'];
 ?>
 
 <!-- impresão dos valores que serão trocados dentro da DIV dados-->

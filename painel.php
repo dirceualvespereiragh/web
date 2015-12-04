@@ -2,6 +2,7 @@
 require 'autoload.php';
 require 'seguranca.php';
 use Entidade\Chamados;
+$posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -115,7 +116,7 @@ use Entidade\Chamados;
                         <h4 class="panel-title">
                             <a href="EditarChamado.php?cadastro=chamados&chave=0">
                                 <span class="glyphicon glyphicon-file"></span>
-                                Chamados
+                                Chamados 
                             </a>
                         </h4>
                     </div>
@@ -163,22 +164,17 @@ use Entidade\Chamados;
             </div> 
             <!-- /.menu navegação lateral -->
             
-          
-            
             <script>
                var xmlhttp = new XMLHttpRequest();
-               var url = "json/QuantosChamados.php";
-
+               var url = "json/QuantosChamados.php?posicao=1";
                xmlhttp.onreadystatechange=function() 
                {
                   if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                     myFunction(xmlhttp.responseText);
                   }
                }
-               
                xmlhttp.open("GET", url, true);
                xmlhttp.send();
-
                function myFunction(response) {
                   var arr = JSON.parse(response);
                   var i;
@@ -187,11 +183,39 @@ use Entidade\Chamados;
                   for(i = 0; i < arr.length; i++) {
                      out +=  arr[i].TotalChamados ;
                   }
-
-                  $total = out;
-                  document.getElementById("id01").innerHTML = out;
+                  $totalaberto = out;
+                  document.getElementById("idChamadosAbertos").innerHTML = out;
                }
             </script>
+
+
+            <script>
+              
+               var xmlhttp2 = new XMLHttpRequest();
+               var url = "json/QuantosChamados.php?posicao=2";
+               xmlhttp2.onreadystatechange=function() 
+               {
+                  if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
+                    myFunction2(xmlhttp2.responseText);
+                  }
+               }
+               xmlhttp2.open("GET", url, true);
+               xmlhttp2.send();
+               function myFunction2(response) {
+                  var arr = JSON.parse(response);
+                  var i;
+                  var out2 = "";
+
+                  for(i = 0; i < arr.length; i++) {
+                     out2 +=  arr[i].TotalChamados ;
+                  }
+                     
+                  $totalfechado = out2;
+                  document.getElementById("idChamadosFechados").innerHTML = out2;
+               }
+            </script>
+            
+            
 
             <div class="col-sm-10">
             
@@ -199,16 +223,22 @@ use Entidade\Chamados;
                     <div  class="conteudo_painel_int">
                         
                         <ul class="nav nav-pills" role="tablist">
-                            <li class="active"><a href="#">Chamados<span class="badge">10</span></a></li>
-                            <li class=""><a href="#">Meus Chamados<span id="id01" class="badge">   </span></a></li>
-                            <li class=""><a href="#">Urgentes <span class="badge">0</span></a></li>
+                            <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge">   </span></a></li>
+                            <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
                         </ul>
                         
                         
+                        <script>
+                           var selector = '.nav li';
+                           $(selector).on('click', function(){
+                              $(selector).removeClass('active');
+                              $(this).addClass('active');
+                           });
+                        </script>        
                         
                         <div class="well well-sm">
                             <h2>Chamados</h2>
-                            <p>Usuário logado: <?= $_SESSION['usuario']?>  </p> 
+                         <!--   <p>Usuário logado: <?= $_SESSION['usuario']?>  </p>  -->
                         </div>
                         
                         <!-- ------------------------------------------------------------------- -->
@@ -220,7 +250,7 @@ use Entidade\Chamados;
                             include 'json/parametros.php';
                             //primeiro select com um contador para saber quantos resultados serão exibidos
                          
-                            $result_p =  mysql_query("select count(codigo) as total FROM chamados");
+                            $result_p =  mysql_query("select count(codigo) as total FROM chamados where posicao = " . $posicao);
                             $rs =  mysql_fetch_array($result_p) ;
                             $row_p = $rs["total"];
                             //quantidade de resultados por página
@@ -230,6 +260,7 @@ use Entidade\Chamados;
                             $paginas = ceil($row_p / $qtde_resultados);
                             // segundo select com os valores já limitados pelo limite no sql
                             //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
+                            $posicao = 1;
                         ?>
 
                         <!-- Função utilizando JQUERY que faz a paginação dos dados,
@@ -239,9 +270,9 @@ use Entidade\Chamados;
                         -->
                         <script type="text/javascript">
 
-                            function paginar(pagina,paginas, qtde_resultados ){
+                            function paginar(pagina,paginas, qtde_resultados , posicao){
                                $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
-                               $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados}, function(data){$("#dados").html(data);}, "html") ;
+                               $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
                             }
                         </script>
       
