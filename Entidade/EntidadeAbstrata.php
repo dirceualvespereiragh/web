@@ -46,6 +46,7 @@ abstract class EntidadeAbstrata
             self::$pdo = new \PDO('mysql:dbname=phpnuke; host=localhost', 'root', '');
         #   self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'bjj*34jb');
         #     self::$pdo = new \PDO('mysql:dbname=ape_base;host=localhost','ape_mysql', 'apgold');
+     #        self::$pdo = new \PDO('mysql:dbname=phpnuke;host=localhost','root', 'apgold'); #192.168.0.50
         }
         return self::$pdo;
     }
@@ -124,7 +125,9 @@ BLOCO;
             $entidade->$method($chave)->setPendente($pendente);
             $entidade->$method($chave)->setSolicitante($solicitante);
             $entidade->$method($chave)->setResponsavel($responsavel);
-            
+            if ($chave == 0) {
+                $entidade->$method($chave)->setResponsavel( $_SESSION['usuario'] );
+            }
         }        
         return $entidade;
     }

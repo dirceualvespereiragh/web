@@ -101,7 +101,7 @@ metodo=gravar&cadastro=chamados"   method="post">
                             <div class="form-group form-group-lg">
                                 <label for="tipo" class="col-xs-2 control-label">Registrado por:</label>
                                 <div class="col-xs-10">
-                                   <p class="form-control-static">  <?=$entidade->getResponsavel() ?> </p>
+                                   <p class="form-control-static" id="responsavel" name="responsavel">  <?=$entidade->getResponsavel() ?> </p>
                                 </div>
                             </div>
                         </div>
