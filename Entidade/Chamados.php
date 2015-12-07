@@ -10,6 +10,7 @@ class Chamados extends EntidadeAbstrata
     protected $pendente;
     protected $solicitante;
     protected $responsavel;
+    protected $status; 
     
     protected static $tabela = 'chamados';
 

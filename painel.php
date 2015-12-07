@@ -214,6 +214,12 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                   document.getElementById("idChamadosFechados").innerHTML = out2;
                }
             </script>
+
+<script>
+function myFunction4() {
+    document.getElementById("demo").innerHTML = "Hello World";
+}
+</script>
             
             
 
@@ -260,7 +266,6 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                             $paginas = ceil($row_p / $qtde_resultados);
                             // segundo select com os valores já limitados pelo limite no sql
                             //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
-                            $posicao = 1;
                         ?>
 
                         <!-- Função utilizando JQUERY que faz a paginação dos dados,
@@ -374,7 +379,17 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
             }) 
          })
 
-        </script>                         
+        </script>   
+      
+      <script type="text/javascript">
+       function minhaFuncao() {
+       #<!-- document.getElementById("demo").innerHTML = "Hello World"; -->
+       <?php $entidade->SetStatus(2); ?>
+       }
+      </script>                    
+
+      
+      
       
   </body>
 </html>

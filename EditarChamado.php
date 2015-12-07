@@ -21,6 +21,13 @@ require 'seguranca.php';
             $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
             $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
         ?>
+    <p>Click the button to trigger a function that will output "Hello World" in a p element with id="demo".</p>
+
+<button onclick="myFunction4()">Click me</button>
+
+<p id="demo"></p>
+
+
     
         <div class="row">
                 <div class="col-xs-12">
@@ -89,13 +96,7 @@ metodo=gravar&cadastro=chamados"   method="post">
                             <label for="tipo" class="col-xs-2 control-label"> </label>
                             <div class="col-xs-10">
                                 <label class="checkbox-in-line">
-                                       <input type="checkbox"  id="id1" value="1"> Não Enviar E-mail
-                                </label>
-                                <label class="checkbox-in-line">
                                        <input type="checkbox"  id="id2" value="2"> Urgente
-                                </label>
-                                <label class="checkbox-in-line">
-                                       <input type="checkbox"  id="id3" value="3"> Encerrar
                                 </label>
                             </div>
                             <div class="form-group form-group-lg">
@@ -104,9 +105,17 @@ metodo=gravar&cadastro=chamados"   method="post">
                                    <p class="form-control-static" id="responsavel" name="responsavel">  <?=$entidade->getResponsavel() ?> </p>
                                 </div>
                             </div>
+                            
+                            
                         </div>
                         
+
                         <input type="hidden" name="chave" value=  <?=$entidade->getCodigo() ?> > 
+
+
+<button onclick="myFunction4()">Click me</button>
+
+<p id="demo"></p>
                         
                           <hr />
                           <div  class="row">
@@ -115,8 +124,9 @@ metodo=gravar&cadastro=chamados"   method="post">
                                <div class="form-action">
                                   <button type="submit" name="EditarChamado" value="EditarChamado" class="btn btn-primary">Salvar</button>
                                   <a href="painel.php" class="btn btn-default">Cancelar</a>
+                                  <button type="submit" name="EditarChamado" value="EditarChamado" onclick="minhaFuncao()" class="btn btn-danger">Encerrar</button>
                                </div>  
-                                </div>
+                             </div>
                             </div>
                           </div>
                         
