@@ -163,7 +163,10 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                 </div>
             </div> 
             <!-- /.menu navegação lateral -->
-            
+        
+
+        
+
             <script>
                var xmlhttp = new XMLHttpRequest();
                var url = "json/QuantosChamados.php?posicao=1";
@@ -215,11 +218,9 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                }
             </script>
 
-<script>
-function myFunction4() {
-    document.getElementById("demo").innerHTML = "Hello World";
-}
-</script>
+
+
+ 
             
             
 
@@ -247,10 +248,23 @@ function myFunction4() {
                          <!--   <p>Usuário logado: <?= $_SESSION['usuario']?>  </p>  -->
                         </div>
                         
-                        <!-- ------------------------------------------------------------------- -->
-                                               
+                           
                         
                         <div id="miolo">
+  <script>
+     function minhaFuncao() {
+        document.getElementById("status").value = '2';
+     }
+   </script>      
+                            
+  <script>
+     function completar() {
+         document.getElementById("queixa").innerHTML = '2';
+     }
+   </script>      
+                            
+                            
+                            
                             
                         <?php
                             include 'json/parametros.php';
@@ -280,8 +294,32 @@ function myFunction4() {
                                $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
                             }
                         </script>
+                            
+                            
+  <?php
+if (isset($_POST['action'])) {
+    switch ($_POST['action']) {
+        case 'FecharChamado':
+            insert();
+            break;
+        case 'select':
+            select();
+            break;
+    }
+}
+
+function select() {
+    echo "The select function is called.";
+    exit;
+}
+
+function insert() {
+    echo "The insert function is called.";
+    exit;
+}
+?>                            
       
-                        <fieldset style="padding: 5px;">  <!-- <legend>Chamados</legend> -->
+                        <fieldset style="padding: 5px;">  
                             <div id="dados">
                                 <?php
                                    include 'tabelachamados.php';
@@ -290,8 +328,13 @@ function myFunction4() {
                                 ?>
                             </div>
                         </fieldset>
+                            
+                            
+                            
+                            
+                            
+                            
                         </div>    
-                        <!-- --------------------------------------------------------------------------------------- -->
                         
                         <div class="page=header"><h3>Avisos:</h3></div>
                         
@@ -381,15 +424,9 @@ function myFunction4() {
 
         </script>   
       
-      <script type="text/javascript">
-       function minhaFuncao() {
-       #<!-- document.getElementById("demo").innerHTML = "Hello World"; -->
-       <?php $entidade->SetStatus(2); ?>
-       }
-      </script>                    
 
       
-      
+            
       
   </body>
 </html>

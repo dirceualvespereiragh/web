@@ -1,22 +1,9 @@
-<!-- <style type="text/css">
-            #paginacao{font-family: Verdana, Arial, Helvetica; font-size: 14px;  }
-            .pgoff {color: #FF0000; text-decoration: none}
-            a.pg {color: #003366; text-decoration: none}
-            a:hover.pg { color: #0066cc; text-decoration:underline}
-        </style> -->
 <?php
  
 echo "<div id='paginacao'>";
 
 echo '<ul class="pagination">';
   
-//  <li><a href="#">1</a></li>
-//  <li><a href="#">2</a></li>
-//  <li><a href="#">3</a></li>
-//  <li class="disabled"><a href="#">4</a></li>
-//  <li><a href="#">5</a></li>
-
-    
     //Verificando se estamos na primeira página se não estivetr ele imprime o botão de anterior e o numero da primeira página
     //Se não ele desativa o botão de anterior e seta o indicador na primeira página
     if ($pagina > 1) {
@@ -66,5 +53,5 @@ echo '<ul class="pagination">';
         echo "<font  color=#CCCCCC>próximo &raquo;</font>";
     }
 echo '</ul>'; 
-echo "<div>";
+echo "</div>";
 ?>

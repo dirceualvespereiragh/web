@@ -110,6 +110,8 @@ BLOCO;
                  $pendente    = $registro[15];
                  $solicitante = $registro[3];     
                  $responsavel = $registro[2];
+                 $status      = $registro[9];
+                 if ($status ==''){ $status = '1'; }
             }
         }
         
@@ -125,6 +127,7 @@ BLOCO;
             $entidade->$method($chave)->setPendente($pendente);
             $entidade->$method($chave)->setSolicitante($solicitante);
             $entidade->$method($chave)->setResponsavel($responsavel);
+            $entidade->$method($chave)->setStatus($status); 
             if ($chave == 0) {
                 $entidade->$method($chave)->setResponsavel( $_SESSION['usuario'] );
             }
@@ -150,20 +153,23 @@ BLOCO;
             $tipo        = isset($dados['tipo']) ? $dados['tipo'] : NULL; 
             $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
             $pendente    = isset($dados['cbpendente']) ? $dados['cbpendente'] : NULL; 
+            $status      = isset($dados['status']) ? $dados['status'] : NULL; 
+            $responsavel =  $_SESSION['usuario'] ; 
             if (! is_null($cliente)) {
                 if (!empty($chave))  {
                     
                     $sql =
                     "UPDATE $cadastro SET 
-                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente'
+                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente' , posicao ='$status'
                      WHERE $nomeChave=$chave";
                 } else {
                     $sql =
                     "INSERT INTO $cadastro 
-                     (nome_cons , queixa , estatistica , solicitante , pendente , dt_abertura) 
+                     (nome_cons , queixa , estatistica , solicitante , pendente , dt_abertura, posicao , responsavel) 
                      VALUES
-                     ( '$cliente','$queixa','$tipo','$solicitante','$pendente',now())";
+                     ( '$cliente','$queixa','$tipo','$solicitante','$pendente',now(),'$status','$responsavel') ";
                 }
+                 
                 $pdo = self::getPdo();
                 $pdo->query("SET NAMES 'utf8'"); 
 

@@ -21,14 +21,9 @@ require 'seguranca.php';
             $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
             $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
         ?>
-    <p>Click the button to trigger a function that will output "Hello World" in a p element with id="demo".</p>
-
-<button onclick="myFunction4()">Click me</button>
-
-<p id="demo"></p>
-
-
-    
+  
+       <button  name="completar" value="completar" onclick="completar()" class="btn"> ...</button>  
+    <button onclick="completar()">Try it</button>
         <div class="row">
                 <div class="col-xs-12">
                     <!-- <form class="form-inline"> -->
@@ -71,8 +66,13 @@ metodo=gravar&cadastro=chamados"   method="post">
                             </div>
                         </div>
                         
+                       
+                        
+                
+                
+                        
                         <div class="form-group">
-                            <label for="queixa">Descrição do Chamado:</label>
+                            <label for="queixa2">Descrição do Chamado:</label>
                                                                     
           <textarea class="form-control" rows="6" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?>  </textarea>
                         </div>
@@ -109,13 +109,10 @@ metodo=gravar&cadastro=chamados"   method="post">
                             
                         </div>
                         
+                    
 
                         <input type="hidden" name="chave" value=  <?=$entidade->getCodigo() ?> > 
-
-
-<button onclick="myFunction4()">Click me</button>
-
-<p id="demo"></p>
+                        <input type="hidden" id="status" name="status" value=  <?=$entidade->getStatus() ?> > 
                         
                           <hr />
                           <div  class="row">
@@ -124,13 +121,16 @@ metodo=gravar&cadastro=chamados"   method="post">
                                <div class="form-action">
                                   <button type="submit" name="EditarChamado" value="EditarChamado" class="btn btn-primary">Salvar</button>
                                   <a href="painel.php" class="btn btn-default">Cancelar</a>
-                                  <button type="submit" name="EditarChamado" value="EditarChamado" onclick="minhaFuncao()" class="btn btn-danger">Encerrar</button>
+                                   <?php if($entidade->getStatus() != '2'){ echo '
+                                  <button type="submit" name="FecharChamado" value="FecharChamado" onclick="minhaFuncao()" class="btn btn-danger">Fechar e Salvar</button>';}?>
                                </div>  
                              </div>
                             </div>
                           </div>
                         
                     </form>
+  
+    
                 </div>
             </div>
                     
@@ -139,49 +139,5 @@ metodo=gravar&cadastro=chamados"   method="post">
 <!-- </body> -->
 </html>    
         
-        
-        
-   
-                   
-<!--formulário
-        <div class="tab-pane active" id="tab_inicio">
-         <div class="col-md-5">
-
-
-            <div class="panel panel-primary">  
-                <div class="panel-heading">Cadastro de Clientes</div>            
-                <div class="panel-body">
-                    <form name="f_projetos" method="post" class="form-horizontal" role="form">
-                         <input type="hidden" name="id" value="<?php echo $Cliente['id']; ?>" />
-                        <div class="form-group">
-                            <label class="control-label">Nome</label>
-                            <input type="text" name="nome" required value="<?php echo $Cliente['nome']; ?>" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Celular</label>
-                            <input type="text" name="celular" rows="3" required value="<?php echo $Cliente['celular']; ?>" class="form-control"/>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input type="text" name="email" required value="<?php echo $Cliente['email']; ?>" class="form-control"/>
-                        </div>
-                            <div class="form-group">
-                            <label class="control-label">Endereço</label>
-                            <input type="text" name="endereco" required value="<?php echo $Cliente['endereco']; ?>" class="form-control"/>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="control-label">Cliente foi Atendido ?</label>
-                            <div class="checkbox">
-                                <label class="control-label">
-                                    <input type="checkbox" name="atendimento" value="Sim" <?php echo ($Cliente['atendimento'] == 1) ? 'checked' : ''; ?>"/>Sim</label>
-                            </div>   
-                        </div>
-
-
-                        <div class="panel-footer">
-
-                          <input type="submit"  class="btn btn-primary" value="<?php echo ($Cliente['id'] >0) ? 'Atualizar' : 'Cadastrar'; ?>" class="btn btn-default">
-                        </div>
--->
+         
+ 
