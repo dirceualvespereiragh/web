@@ -244,12 +244,8 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                         </script>        
                         
                         <div class="well well-sm">
-                            <h2>Chamados</h2>
-                         <!--   <p>Usuário logado: <?= $_SESSION['usuario']?>  </p>  -->
+                            <h4>Chamados</h4>
                         </div>
-                        
-                           
-                        
                         <div id="miolo">
   <script>
      function minhaFuncao() {
@@ -275,7 +271,7 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
          if (document.getElementById("queixa").innerHTML == '   '  ){
             document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
          }else{
-            document.getElementById("queixa").innerHTML +=  '\n Complemento de '+ "<?= $_SESSION['usuario']?>" + ' em '+hoje;
+            document.getElementById("queixa").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
          }
      }
    </script>      

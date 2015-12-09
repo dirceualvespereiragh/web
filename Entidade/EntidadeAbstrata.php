@@ -111,6 +111,8 @@ BLOCO;
                  $solicitante = $registro[3];     
                  $responsavel = $registro[2];
                  $status      = $registro[9];
+                 $parecer     = $registro[5];
+                 $solucao     = $registro[6];
                  if ($status ==''){ $status = '1'; }
             }
         }
@@ -128,6 +130,9 @@ BLOCO;
             $entidade->$method($chave)->setSolicitante($solicitante);
             $entidade->$method($chave)->setResponsavel($responsavel);
             $entidade->$method($chave)->setStatus($status); 
+            $entidade->$method($chave)->setParecer($parecer); 
+            $entidade->$method($chave)->setSolucao($solucao); 
+            
             if ($chave == 0) {
                 $entidade->$method($chave)->setResponsavel( $_SESSION['usuario'] );
             }
@@ -154,6 +159,8 @@ BLOCO;
             $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
             $pendente    = isset($dados['cbpendente']) ? $dados['cbpendente'] : NULL; 
             $status      = isset($dados['status']) ? $dados['status'] : NULL; 
+            $parecer     = isset($dados['parecer']) ? $dados['parecer'] : NULL; 
+            $solucao     = isset($dados['solucao']) ? $dados['solucao'] : NULL; 
             $responsavel =  $_SESSION['usuario'] ; 
             if (! is_null($cliente)) {
                 if (!empty($chave))  {

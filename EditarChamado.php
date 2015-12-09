@@ -73,8 +73,15 @@ metodo=gravar&cadastro=chamados"   method="post">
                         <div class="form-group">
                             <label for="queixa2">Descrição do Chamado:</label>
                                                                     
-          <textarea class="form-control" rows="6" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?>  </textarea>
+          <textarea readonly class="form-control" rows="8" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?><br/> <?=$entidade->getParecer() ?> <br/> <?=$entidade->getSolucao() ?>  </textarea>
                         </div>
+                        
+                        <div class="form-group">
+                            <label for="complemento">Complemento:</label>
+                                                                    
+          <textarea class="form-control" rows="4" id="complemento" name="complemento" >   </textarea>
+                        </div>
+                        
                         
                         <div class="forrm-group"> 
                             <label for="Pendente" >Pendente com:</label>

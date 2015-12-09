@@ -5,6 +5,8 @@ class Chamados extends EntidadeAbstrata
 {
     protected $codigo;
     protected $queixa;
+    protected $parecer;
+    protected $solucao;
     protected $cliente;
     protected $tipo;
     protected $pendente;
