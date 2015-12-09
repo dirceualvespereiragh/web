@@ -23,7 +23,6 @@ require 'seguranca.php';
         ?>
   
        <button  name="completar" value="completar" onclick="completar()" class="btn"> ...</button>  
-    <button onclick="completar()">Try it</button>
         <div class="row">
                 <div class="col-xs-12">
                     <!-- <form class="form-inline"> -->

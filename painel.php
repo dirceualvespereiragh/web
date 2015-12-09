@@ -259,7 +259,24 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                             
   <script>
      function completar() {
-         document.getElementById("queixa").innerHTML = '2';
+         var Hoje = new Date();
+         var dia = Hoje.getDate();
+         var mes = Hoje.getMonth()+1; //January is 0!
+         var ano = Hoje.getFullYear();
+         if(dia<10) {
+             dia='0'+dia
+         } 
+
+         if(mes<10) {
+             mes='0'+mes
+         } 
+
+         hoje = dia+'/'+mes+'/'+ano;
+         if (document.getElementById("queixa").innerHTML == '   '  ){
+            document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
+         }else{
+            document.getElementById("queixa").innerHTML +=  '\n Complemento de '+ "<?= $_SESSION['usuario']?>" + ' em '+hoje;
+         }
      }
    </script>      
                             
