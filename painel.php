@@ -18,6 +18,7 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
       
     <link href="css/estilo.css" rel="stylesheet">
     <link href="css/painel.css" rel="stylesheet">
+    <link href="css/datepicker.css" rel="stylesheet">      
       
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -26,6 +27,16 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <!-- no final não estava funcionando a ordenação -->  
     <script src="js/jquery-1.11.3.min.js"></script> 
     <script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap-datepicker.js"></script>  
+      
+    <script src="library/RGraph/RGraph.common.core.js" ></script>
+    <script src="library/RGraph/RGraph.common.annotate.js" ></script>
+    <script src="library/RGraph/RGraph.common.context.js" ></script>
+    <script src="library/RGraph/RGraph.common.tooltips.js" ></script>
+    <script src="library/RGraph/RGraph.common.resizing.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.bar.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.common.dynamic.js"></script>
+    <script src="library/RGraph/libraries/RGraph.pie.js"></script>        
       
   </head>
   <body>
@@ -90,7 +101,7 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><i class="fa fa-area-chart fa-2x"></i></a></li>
+                <li><a href="#"><i class="fa fa-area-chart fa-2x"  data-toggle="modal" data-target="#grafico"  ></i></a></li>
                 <li><a href="#"><i class="fa fa-birthday-cake fa-2x" data-toggle="modal" data-target="#bolo"  ></i></a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user fa-2x"></i> <span class="caret"></span></a>
@@ -401,7 +412,7 @@ function insert() {
             
         <!-- Painel Bolo-->    
             
-       <div class="modal fade" id="bolo" role="dialog" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="bolo" role="dialog" tabindex="-1" aria-hidden="true">
            <div class="modal-dialog modal-lg">
                <div class="modal-content">
                    <div class="modal-header">
@@ -420,7 +431,95 @@ function insert() {
                    </div>
                </div>
            </div>
-       </div>            
+      </div>            
+      
+      <div class="modal fade" id="grafico" role="dialog" tabindex="-1" aria-hidden="true">
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',                
+                language: 'pt-BR'
+            });
+        });
+
+    </script>          
+          
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">
+                           <span aria-hidden="true">&times;</span>
+                           <span class="sr-only">Fechar janela modal</span>
+                       </button>
+                       <h4 class="modal-title">Intervalo : 01/12/2015 até 31/12/2015 </h4>
+
+                       <div class="row">
+
+        <!-- Div utilizada para enquadrar input de teste no centro da tela -->
+        <div class="col-sm-offset-4 col-sm-4">
+          <!-- Input ao qual foi designado a função para exibir o calendário, que vai ser selecionado com jquery na função abaixo. -->
+          <input type="text" name="data" class="datepicker" />
+        </div>
+
+      </div>
+
+    
+                       
+                       
+                       
+                       
+                    </div>
+                   
+                    <div class="modal-body">
+                       <p> <h3 > Chamado </h3></p>
+                       <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
+                    </div>
+                
+                   
+<script>
+    window.onload = function ()
+    {
+        var hints = [
+            'Andre',  'Bazzan',
+            'Matheus', 'Fernanda'
+        ];
+        
+        var labels  = [
+            '14',  '8',
+            '4', '6'
+        ];        
+
+        var pie = new RGraph.Pie({
+            id: 'cvs',
+            data: [14,8,4,6],
+            options: {
+                tooltips: labels,
+                labels: hints,
+                shadow: false,
+                strokestyle: 'rgba(0,0,0,0)',
+                exploded: 3
+            }
+        }).draw();
+
+    };
+    
+</script>                       
+               
+               
+               
+               
+               
+               
+               
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                   </div>
+               </div>
+           </div>
+      </div>            
+      
+
+      
             
       
       <script src="js/bootstrap.min.js"></script>

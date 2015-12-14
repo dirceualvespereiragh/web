@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Data</title>
+    
+    <script src="js/jquery-1.11.3.min.js"></script> 
+    <script src="js/bootstrap-datepicker.js"></script>  
+      
+    <script src="js/bootstrap.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker-globalize.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.pt-BR.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script>
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                format: 'dd/mm/yyyy',                
+                language: 'pt-BR'
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div> 
+        <input type="text" name="data" class="datepicker" />
+    </div>
+</body>
+</html>
