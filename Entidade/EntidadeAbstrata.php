@@ -159,16 +159,17 @@ BLOCO;
             $solicitante = isset($dados['solicitante']) ? $dados['solicitante'] : NULL; 
             $pendente    = isset($dados['cbpendente']) ? $dados['cbpendente'] : NULL; 
             $status      = isset($dados['status']) ? $dados['status'] : NULL; 
-            $parecer     = isset($dados['parecer']) ? $dados['parecer'] : NULL; 
-            $solucao     = isset($dados['solucao']) ? $dados['solucao'] : NULL; 
+            $solucao     = isset($dados['complemento']) ? $dados['complemento'] : NULL; 
             $responsavel =  $_SESSION['usuario'] ; 
             if (! is_null($cliente)) {
                 if (!empty($chave))  {
                     
                     $sql =
                     "UPDATE $cadastro SET 
-                     nome_cons = '$cliente',queixa ='$queixa', estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente' , posicao ='$status'
+                     nome_cons = '$cliente',solucao = concat(COALESCE(solucao,''), '$solucao'), estatistica = '$tipo' , solicitante ='$solicitante' , pendente = '$pendente' , posicao ='$status'
                      WHERE $nomeChave=$chave";
+                
+                    
                 } else {
                     $sql =
                     "INSERT INTO $cadastro 
@@ -185,6 +186,7 @@ BLOCO;
 
                 }    
                       
+
             }
         }
         if (! is_null($nome)) {

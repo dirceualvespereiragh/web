@@ -277,12 +277,12 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
          if(mes<10) {
              mes='0'+mes
          } 
-
-         hoje = dia+'/'+mes+'/'+ano;
-         if (document.getElementById("queixa").innerHTML == '   '  ){
+      
+         hoje = dia+'/'+mes+'/'+ano;     
+         if (document.getElementById("queixa").innerHTML.trim() == ''  ){
             document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
          }else{
-            document.getElementById("queixa").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
+            document.getElementById("complemento").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
          }
      }
    </script>      

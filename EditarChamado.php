@@ -29,29 +29,28 @@ require 'seguranca.php';
                     <form class="form-horizontal" role="form" action="Controlador/ControladorEntidade.php?
 metodo=gravar&cadastro=chamados"   method="post"> 
                         <div class="forrm-group"> <!--  form-group-lg um pouco maior -->
-                            <label for="cliente" class="col-xs-2 control-label">Cliente:</label>
-                            <div class="col-xs-10">
+                            <label for="cliente" class="col-xs-1 control-label">Cliente:</label>
+                            <div class="col-xs-11">
                                 <select id="cbClientes" name="cbClientes" class="form-control">
                                     <?PHP
                                        echo Chamados::AlimentarComboBox($entidade->getCliente());
                                     ?>
                                 </select> 
-                                <span class="help-block">.</span>
+<!--                                <span class="help-block">.</span> -->
                             </div>
                         </div>
                         
                         <div class="forrm-group">
-                            <label for="solicitante" class="col-xs-2  control-label">Solicitante:</label>
-                            <div class="col-xs-10">
+                            <label for="solicitante" class="col-xs-1  control-label">Solicitante:</label>
+                            <div class="col-xs-5">
                                <input type="text" class="form-control" id="solicitante" name="solicitante" placeholder="Solicitante:"  value="<?=$entidade->getSolicitante() ?>"    />
-                               <span class="help-block">.</span>
                             </div>
                         </div>
                         
                         
                         <div class="forrm-group"> 
-                            <label for="tipo" class="col-xs-2 control-label">Tipo de Chamado:</label>
-                            <div class="col-xs-10">
+                            <label for="tipo" class="col-xs-1 control-label">Tipo :</label>
+                            <div class="col-xs-5">
                                 <select class="form-control" id="tipo" name="tipo">
             <option value="Atividade Interna" <?php if($entidade->getTipo() == 'Atividade Interna'){ echo 'selected'; }?>>1 - Atividade Interna</option>
             <option value="Contabilidade" <?php if($entidade->getTipo() == 'Contabilidade'){ echo 'selected'; }?>>2 - Contabilidade</option>
@@ -65,22 +64,29 @@ metodo=gravar&cadastro=chamados"   method="post">
                             </div>
                         </div>
                         
-                       
-                        
-                
-                
-                        
+                <?php        
+                   $html = '';
+                   if ($entidade->getCodigo() == 0) {
+                        $html .= '
                         <div class="form-group">
-                            <label for="queixa2">Descrição do Chamado:</label>
-                                                                    
-          <textarea readonly class="form-control" rows="8" id="queixa" name="queixa" > <?=$entidade->getQueixa() ?><br/> <?=$entidade->getParecer() ?> <br/> <?=$entidade->getSolucao() ?>  </textarea>
+                            <label for="queixa2" class="col-xs-10" >Descrição do Chamado:</label>
+                            <textarea class="form-control" rows="8" id="queixa" name="queixa" >' . $entidade->getQueixa() . '&#10' . $entidade->getParecer() .  '&#10' . $entidade->getSolucao() .
+                            '</textarea>
+                        </div>';
+                   } else {
+                        $html .= '
+                        <div class="form-group">
+                            <label for="queixa2" class="col-xs-10" >Descrição do Chamado:</label>
+                            <textarea readonly class="form-control" rows="8" id="queixa" name="queixa" >' . $entidade->getQueixa() . '&#10' . $entidade->getParecer() .  '&#10' . $entidade->getSolucao() .
+                            '</textarea>
                         </div>
-                        
                         <div class="form-group">
                             <label for="complemento">Complemento:</label>
-                                                                    
-          <textarea class="form-control" rows="4" id="complemento" name="complemento" >   </textarea>
-                        </div>
+                            <textarea class="form-control" rows="4" id="complemento" name="complemento" >  </textarea>
+                        </div>';
+                   }
+                   echo $html;
+                ?>
                         
                         
                         <div class="forrm-group"> 
@@ -96,7 +102,6 @@ metodo=gravar&cadastro=chamados"   method="post">
                                 </select> 
                             </div>
                         </div>                        
-
                         
                         <div class="form-group">
                             <label for="tipo" class="col-xs-2 control-label"> </label>
