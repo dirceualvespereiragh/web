@@ -28,6 +28,10 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="js/jquery-1.11.3.min.js"></script> 
     <script src="js/jquery.tablesorter.min.js" type="text/javascript"></script>
     <script src="js/bootstrap-datepicker.js"></script>  
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+      
+      
       
     <script src="library/RGraph/RGraph.common.core.js" ></script>
     <script src="library/RGraph/RGraph.common.annotate.js" ></script>
@@ -231,10 +235,6 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
 
 
 
- 
-            
-            
-
             <div class="col-sm-10">
             
                 <div class="conteudo_painel">                    
@@ -359,7 +359,11 @@ function insert() {
                             
                             
                         </div>    
-                        
+                
+                                          <div class="col-sm-offset-4 col-sm-4">
+                      <input type="text" id="exemplo" class="form-control">
+        </div>
+
                         <div class="page=header"><h3>Avisos:</h3></div>
                         
                         <div class="alert alert-success">
@@ -403,10 +407,17 @@ function insert() {
                         </div>
                         
                     </div>
+
+                
+                
                 </div>
             
             </div>
         </div>
+          
+
+          
+          
       </div>
       
             
@@ -434,17 +445,7 @@ function insert() {
       </div>            
       
       <div class="modal fade" id="grafico" role="dialog" tabindex="-1" aria-hidden="true">
-    <script>
-        $(document).ready(function () {
-            $('.datepicker').datepicker({
-                format: 'dd/mm/yyyy',                
-                language: 'pt-BR'
-            });
-        });
-
-    </script>          
-          
-           <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-lg">
                <div class="modal-content">
                    <div class="modal-header">
                        <button type="button" class="close" data-dismiss="modal">
@@ -455,10 +456,8 @@ function insert() {
 
                        <div class="row">
 
-        <!-- Div utilizada para enquadrar input de teste no centro da tela -->
         <div class="col-sm-offset-4 col-sm-4">
-          <!-- Input ao qual foi designado a função para exibir o calendário, que vai ser selecionado com jquery na função abaixo. -->
-          <input type="text" name="data" class="datepicker" />
+                      <input type="text" id="exemplo" class="form-control">
         </div>
 
       </div>
@@ -474,24 +473,31 @@ function insert() {
                        <p> <h3 > Chamado </h3></p>
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
                     </div>
-                
+                 <div class="modal-body">
+    <div id="datetimepicker1" class="input-append date">
+      <input data-format="dd/mm/yyyy" type="text"></input>
+      <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
+    </div>
+  </div>
+ 
                    
 <script>
+    
     window.onload = function ()
     {
         var hints = [
-            'Andre',  'Bazzan',
-            'Matheus', 'Fernanda'
+            'Vagner',  'Gilson',
+            'Roberto'
         ];
         
         var labels  = [
-            '14',  '8',
-            '4', '6'
+            '14',  '6',
+            '2'
         ];        
 
         var pie = new RGraph.Pie({
             id: 'cvs',
-            data: [14,8,4,6],
+            data: [14,6,2],
             options: {
                 tooltips: labels,
                 labels: hints,
@@ -503,13 +509,15 @@ function insert() {
 
     };
     
+            $(function() {
+  $('#datetimepicker1').datetimepicker({
+    language: 'pt-BR'
+  });
+});
+            
+
+    
 </script>                       
-               
-               
-               
-               
-               
-               
                
                    <div class="modal-footer">
                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -522,9 +530,6 @@ function insert() {
       
             
       
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/main.js"></script>
-      
       <script type="text/javascript">
 	     $(document).ready(function(){
 		    $("#menuchamados a").click(function( e ){
@@ -532,10 +537,17 @@ function insert() {
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
             }) 
+            $('#exemplo').datepicker({
+                    format: "dd/mm/yyyy",
+                    language: "pt-BR"
+            })
+    
+            
+            
          })
 
         </script>   
-      
+    
 
       
             

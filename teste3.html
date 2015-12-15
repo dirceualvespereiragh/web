@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Testando Data Picker</title>
+    <link href="css/datepicker.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+      
+</head>
+
+<body>
+  <div class="container">
+
+      <h1 align="center">
+        Testando Datepicker for Bootstrap
+      </h1>
+
+      <br>
+
+      <div class="row">
+        <div class="col-sm-offset-4 col-sm-4">
+          <!-- Input ao qual foi designado a função para exibir o calendário, que vai ser selecionado com jquery na função abaixo. -->
+          <input type="text" id="exemplo" class="form-control">
+        </div>
+
+      </div>
+
+    </div>
+    
+    <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="fa fa-area-chart fa-2x"  data-toggle="modal" data-target="#grafico"  ></i></a></li>
+                <li><a href="#"><i class="fa fa-birthday-cake fa-2x" data-toggle="modal" data-target="#bolo"  ></i></a></li>
+    </ul>                 
+    
+    
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/bootstrap-datepicker.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script>
+       $(document).ready(function () {
+          $('#exemplo').datepicker({
+            format: "dd/mm/yyyy",
+            language: "pt-BR"
+          });
+       });
+    </script>
+    
+    
+    
+ <div class="modal fade" id="bolo" role="dialog" tabindex="-1" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">
+                           <span aria-hidden="true">&times;</span>
+                           <span class="sr-only">Fechar janela modal</span>
+                       </button>
+                       <h4 class="modal-title">Datas importantes</h4>
+                    </div>
+                   <div class="modal-body">
+                       <p>tut da Silva e Silva    24/01/82</p>
+                       <p>Tico Tico no Fuba       12/02/81</p>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                   </div>
+               </div>
+           </div>
+      </div>            
+      
+      <div class="modal fade" id="grafico" role="dialog" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <button type="button" class="close" data-dismiss="modal">
+                           <span aria-hidden="true">&times;</span>
+                           <span class="sr-only">Fechar janela modal</span>
+                       </button>
+                       <h4 class="modal-title">Intervalo : 01/12/2015 até 31/12/2015 </h4>
+
+                       <div class="col-sm-offset-4 col-sm-4">
+                          <input type="text" id="exemplo" class="form-control">
+                       </div>
+
+                   </div>
+                </div>
+          </div>
+    </div>
+    
+</body>
+</html>
