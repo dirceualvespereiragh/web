@@ -440,8 +440,9 @@ function insert() {
                </div>
            </div>
       </div>            
+       
       
-      <div class="modal fade" id="grafico" role="dialog" tabindex="-1" aria-hidden="true">
+      <div class="modal fade" id="grafico" role="dialog" tabindex="-1" aria-hidden="true" onload="GerarGraficoTipo()" >
             <div class="modal-dialog modal-lg">
                <div class="modal-content">
                    <div class="modal-header">
@@ -452,33 +453,23 @@ function insert() {
                        <h4 class="modal-title">Intervalo: </h4>
 
                        <div class="row">
+                           <form id="formulario">
 
-                            <div class="col-sm-offset-1 col-sm-2">
-                                <span> De: </span>
-                                 <input type="text" id="DataGraficoInicio" class="form-control">
-                            </div>
-                           
-                            <div class="col-sm-offset-2 col-sm-2">
-                                 <span> até:</span>
-                                 <input type="date" id="DataGraficoTipoFim" name="DataGraficoTipoFim" class="form-control">
-                            </div>
-                            <div class="col-sm-offset-2 col-sm-1">
-                                 <span> </span>
-                                 <button type="submit" class="btn btn-default" >Gerar</button>
-                           </div>
-    <script>
-var Form        = document.getElementById('grafico');
-var DataInicial = document.getElementById('DataGraficoTipoFim');
+                                <div class="col-sm-offset-1 col-sm-3">
+                                     <span> De: </span>
+                                     <input type="date" id="DataGraficoInicio" class="form-control">
+                                </div>
 
-Form.addEventListener('submit', function(e) {
-    // alerta o valor do campo
-    alert(DataInicial.value);
-
-    // impede o envio do form
-    e.preventDefault();
-});         
-        </script>
-                           
+                                <div class="col-sm-offset-1 col-sm-3">
+                                     <span> até:</span>
+                                     <input type="date" id="DataGraficoTipoFim" name="DataGraficoTipoFim" class="form-control">
+                                </div>
+                                <div class="col-sm-offset-2 col-sm-1">
+                                     <span> </span>
+                                     <button type="submit" class="btn btn-default" >Gerar</button>
+                               </div>
+                           </form>   
+                       
 
                        </div>
 
@@ -487,57 +478,22 @@ Form.addEventListener('submit', function(e) {
                     <div class="modal-body">
                        <p> <h3 > Chamado  </h3></p>
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
+                   
+                                               <script>
+                                var Form        = document.getElementById('formulario');
+                                var DataInicial = document.getElementById('DataGraficoInicio');
+                                var DataFinal   = document.getElementById('DataGraficoTipoFim');
+
+                                
+                                Form.addEventListener('submit', function(e) {
+                                    GerarGraficoTipo(DataInicial.value,DataFinal.value);
+                                    // impede o envio do form
+                                    e.preventDefault();
+                                });         
+                            </script>
+
+                   
                     </div>
-                    <script>
-                        window.onload = function ()
-                        {
-                            <?php
-                               $Registros = Chamados::GraficoTipoChamado('2012-12-01','2012-12-31');
-                            
-                               $Separador = "";
-                               echo "var hints = [";
-                               foreach($Registros as $record)
-                               {   
-                                  echo  $Separador . "'" . $record['Tipo'] . "'" ; 
-                                  $Separador = ",";   
-                               }
-                               echo "];";
-                            
-                               $Separador = "";
-                               echo "var labels = [";
-                               foreach($Registros as $record)
-                               {   
-                                  echo  $Separador . "'" . $record['Qtde'] . "'" ; 
-                                  $Separador = ",";   
-                               }
-                               echo "];";
-                            
-                               $Separador = "";
-                               echo "var dados = [";
-                               foreach($Registros as $record)
-                               {   
-                                  echo  $Separador . $record['Qtde'] ; 
-                                  $Separador = ",";   
-                               }
-                               echo "];";
-                            
-                            
-                            ?>
-
-                            var pie = new RGraph.Pie({
-                                id: 'cvs',
-                                data: dados ,
-                                options: {
-                                    tooltips: labels,
-                                    labels: hints,
-                                    shadow: false,
-                                    strokestyle: 'rgba(0,0,0,0)',
-                                    exploded: 3
-                                }
-                            }).draw();
-
-                        };
-                    </script>                       
                
                    <div class="modal-footer">
                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -545,10 +501,25 @@ Form.addEventListener('submit', function(e) {
                </div>
            </div>
       </div>            
-      
+    
+      <script type="text/javascript">
 
+                        function GerarGraficoTipo(DataInicial,DataFinal)
+                        {
+                            alert(DataInicial);
+                            alert(DataFinal);
       
-            
+                            $.post("graficotipochamado.php", {DataInicial:DataInicial, DataFinal:DataFinal}, function(data){$("#dados").html(data);}, "html") ;
+                            }
+                        </script>
+                            
+                        };
+                    </script>                       
+    
+    
+    
+    
+      
       
       <script type="text/javascript">
 	     $(document).ready(function(){
@@ -557,12 +528,6 @@ Form.addEventListener('submit', function(e) {
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
             }) 
-            $('#DataGraficoInicio').datepicker({
-                    format: "dd/mm/yyyy",
-                    language: "pt-BR"
-            })
-            
-    
             
             
          })
