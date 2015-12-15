@@ -360,9 +360,6 @@ function insert() {
                             
                         </div>    
                 
-                                          <div class="col-sm-offset-4 col-sm-4">
-                      <input type="text" id="exemplo" class="form-control">
-        </div>
 
                         <div class="page=header"><h3>Avisos:</h3></div>
                         
@@ -452,72 +449,95 @@ function insert() {
                            <span aria-hidden="true">&times;</span>
                            <span class="sr-only">Fechar janela modal</span>
                        </button>
-                       <h4 class="modal-title">Intervalo : 01/12/2015 até 31/12/2015 </h4>
+                       <h4 class="modal-title">Intervalo: </h4>
 
                        <div class="row">
 
-        <div class="col-sm-offset-4 col-sm-4">
-                      <input type="text" id="exemplo" class="form-control">
-        </div>
+                            <div class="col-sm-offset-1 col-sm-2">
+                                <span> De: </span>
+                                 <input type="text" id="DataGraficoInicio" class="form-control">
+                            </div>
+                           
+                            <div class="col-sm-offset-2 col-sm-2">
+                                 <span> até:</span>
+                                 <input type="date" id="DataGraficoTipoFim" name="DataGraficoTipoFim" class="form-control">
+                            </div>
+                            <div class="col-sm-offset-2 col-sm-1">
+                                 <span> </span>
+                                 <button type="submit" class="btn btn-default" >Gerar</button>
+                           </div>
+    <script>
+var Form        = document.getElementById('grafico');
+var DataInicial = document.getElementById('DataGraficoTipoFim');
 
-      </div>
+Form.addEventListener('submit', function(e) {
+    // alerta o valor do campo
+    alert(DataInicial.value);
 
-    
-                       
-                       
-                       
-                       
+    // impede o envio do form
+    e.preventDefault();
+});         
+        </script>
+                           
+
+                       </div>
+
                     </div>
                    
                     <div class="modal-body">
-                       <p> <h3 > Chamado </h3></p>
+                       <p> <h3 > Chamado  </h3></p>
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
                     </div>
-                 <div class="modal-body">
-    <div id="datetimepicker1" class="input-append date">
-      <input data-format="dd/mm/yyyy" type="text"></input>
-      <span class="add-on"><i data-time-icon="icon-time" data-date-icon="icon-calendar"></i></span>
-    </div>
-  </div>
- 
-                   
-<script>
-    
-    window.onload = function ()
-    {
-        var hints = [
-            'Vagner',  'Gilson',
-            'Roberto'
-        ];
-        
-        var labels  = [
-            '14',  '6',
-            '2'
-        ];        
+                    <script>
+                        window.onload = function ()
+                        {
+                            <?php
+                               $Registros = Chamados::GraficoTipoChamado('2012-12-01','2012-12-31');
+                            
+                               $Separador = "";
+                               echo "var hints = [";
+                               foreach($Registros as $record)
+                               {   
+                                  echo  $Separador . "'" . $record['Tipo'] . "'" ; 
+                                  $Separador = ",";   
+                               }
+                               echo "];";
+                            
+                               $Separador = "";
+                               echo "var labels = [";
+                               foreach($Registros as $record)
+                               {   
+                                  echo  $Separador . "'" . $record['Qtde'] . "'" ; 
+                                  $Separador = ",";   
+                               }
+                               echo "];";
+                            
+                               $Separador = "";
+                               echo "var dados = [";
+                               foreach($Registros as $record)
+                               {   
+                                  echo  $Separador . $record['Qtde'] ; 
+                                  $Separador = ",";   
+                               }
+                               echo "];";
+                            
+                            
+                            ?>
 
-        var pie = new RGraph.Pie({
-            id: 'cvs',
-            data: [14,6,2],
-            options: {
-                tooltips: labels,
-                labels: hints,
-                shadow: false,
-                strokestyle: 'rgba(0,0,0,0)',
-                exploded: 3
-            }
-        }).draw();
+                            var pie = new RGraph.Pie({
+                                id: 'cvs',
+                                data: dados ,
+                                options: {
+                                    tooltips: labels,
+                                    labels: hints,
+                                    shadow: false,
+                                    strokestyle: 'rgba(0,0,0,0)',
+                                    exploded: 3
+                                }
+                            }).draw();
 
-    };
-    
-            $(function() {
-  $('#datetimepicker1').datetimepicker({
-    language: 'pt-BR'
-  });
-});
-            
-
-    
-</script>                       
+                        };
+                    </script>                       
                
                    <div class="modal-footer">
                        <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
@@ -537,10 +557,11 @@ function insert() {
 			   var href = $( this ).attr('href');
 			   $("#miolo").load( href +" #miolo");
             }) 
-            $('#exemplo').datepicker({
+            $('#DataGraficoInicio').datepicker({
                     format: "dd/mm/yyyy",
                     language: "pt-BR"
             })
+            
     
             
             

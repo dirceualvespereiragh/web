@@ -101,6 +101,18 @@ BLOCO;
       
         return $html;
      }  
+    
+     public static function GraficoTipoChamado($datainicio,$datafim)
+     {
+        $pdo = self::getPdo();
+        $pdo->query("SET NAMES 'utf8'"); 
+        
+        $resultSet = $pdo->query('SELECT estatistica as Tipo, count(codigo) as Qtde FROM '. static::$tabela . ' WHERE (dt_abertura BETWEEN  ' . '"' . $datainicio . ' 00:00:01"' . ' AND ' . '"' . $datafim . ' 23:55:55"' .' ) GROUP BY estatistica ' ); 
+        $records = $resultSet->fetchAll();
+         
+        return $records; 
+    
+     }
 }
 
 ?>

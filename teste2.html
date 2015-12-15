@@ -7,12 +7,31 @@
 <button onclick="myFunction()">Click me</button>
 
 <p id="demo"></p>
+    
+<form id="formulario">
+    <input type="text" id="campo">
+    <input type="submit" value="Enviar">
+</form>    
 
 <script>
 function myFunction() {
     document.getElementById("demo").innerHTML = "Hello World";
 }
+    
+var form  = document.getElementById('formulario');
+var campo = document.getElementById('campo');
+
+form.addEventListener('submit', function(e) {
+    // alerta o valor do campo
+    alert(campo.value);
+
+    // impede o envio do form
+    e.preventDefault();
+});    
 </script>
+    
+    
+    
 
 </body>
 </html>
