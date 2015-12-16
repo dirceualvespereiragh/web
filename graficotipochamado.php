@@ -3,9 +3,6 @@
    require 'seguranca.php';
 
    use Entidade\Chamados;
-   //         $class = 'Entidade\\' .ucfirst($_GET['cadastro']);
-//            $entidade = call_user_func(array($class,'get'),isset($_GET['chave']) ? $_GET['chave'] : NULL); 
-//            $method = 'get' . ucfirst(call_user_func(array($class,'getChave')));
   $DataInicial = $_POST['DataInicial'];
   $DataFinal   = $_POST['DataFinal'];
 
@@ -14,6 +11,9 @@
    $Registros = Chamados::GraficoTipoChamado($DataInicial,$DataFinal);
 
    $Separador = "";
+echo '<canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>';
+echo "<script>";
+
    echo "var hints = [";
    foreach($Registros as $record)
    {   
@@ -43,12 +43,14 @@
    echo "  id: 'cvs',                       ";
    echo "  data: dados ,                    ";
    echo "  options: {                       ";
-   echo "    tooltips: labels,              ";
+   echo "    tooltips: hints,              ";
+   echo " key: ['Folha: 34%','SagAPa: 28%' ],";
    echo "    labels: hints,                 ";
    echo "    shadow: false,                 ";
    echo "    strokestyle: 'rgba(0,0,0,0)',  ";
    echo "    exploded: 3                    ";
    echo "  }                                ";
    echo "}).draw();                         ";
+echo "</script>";
 ?>
 

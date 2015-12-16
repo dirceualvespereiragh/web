@@ -475,19 +475,21 @@ function insert() {
 
                     </div>
                    
-                    <div class="modal-body">
+                    <div class="modal-body" id="graficotipo">
                        <p> <h3 > Chamado  </h3></p>
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
-                   
-                                               <script>
+
+                           <script>
                                 var Form        = document.getElementById('formulario');
                                 var DataInicial = document.getElementById('DataGraficoInicio');
                                 var DataFinal   = document.getElementById('DataGraficoTipoFim');
 
                                 
                                 Form.addEventListener('submit', function(e) {
-                                    GerarGraficoTipo(DataInicial.value,DataFinal.value);
+                                    //GerarGraficoTipo(DataInicial.value,DataFinal.value);
                                     // impede o envio do form
+                                    $.post("graficotipochamado.php", {DataInicial:DataInicial.value, DataFinal:DataFinal.value}, function(data){$("#graficotipo").html(data);}, "html") ;
+
                                     e.preventDefault();
                                 });         
                             </script>
@@ -506,15 +508,14 @@ function insert() {
 
                         function GerarGraficoTipo(DataInicial,DataFinal)
                         {
-                            alert(DataInicial);
-                            alert(DataFinal);
+                            //alert(DataInicial);
+                            //alert(DataFinal);
       
-                            $.post("graficotipochamado.php", {DataInicial:DataInicial, DataFinal:DataFinal}, function(data){$("#dados").html(data);}, "html") ;
-                            }
+                            $.post("graficotipochamado.php", {DataInicial:DataInicial, DataFinal:DataFinal}, function(data){$("#graficotipo").html(data);}, "html") ;
+                        }
                         </script>
                             
-                        };
-                    </script>                       
+                        
     
     
     
