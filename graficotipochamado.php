@@ -48,25 +48,34 @@ echo "<script>";
    echo "  options: {                       ";
    echo "      strokestyle: '#e8e8e8',   ";
    echo "      variant: 'pie3d', ";
+   echo "      title: 'Chamados ',";
+   echo "      titleY: 30,         ";
+   echo "      key: labels,";
+   echo "      keyInteractive: true,
+               keyPositionY: 350,
+               keyPositionX: 440,
+               keyRounded: false, ";
    echo "      linewidth: 2,  ";
    echo "      shadowOffsetx: 0,  ";
    echo "      shadowOffsety: 15,  ";
    echo "      shadowColor: '#aaa',  ";
    echo "      exploded: 10,  ";
    echo "      radius: 80,";
-   echo "      labels: labels,     ";
-   echo "      labelsSticks: true,";
-   echo "      labelsSticksLength: 15 ,";
+//   echo "      labels: labels,     ";
+//   echo "      labelsSticks: true,";
+//   echo "      labelsSticksLength: 15 ,";
    echo "      eventsClick: DetalheTipoChamado, ";
    echo "      eventsMousemove: function (e, shape) {e.target.style.cursor = 'pointer';}";
    echo "  }                                ";
    echo "}).draw();                         ";
-
-
+echo "</script>";
+?>
 
   
 
-echo "</script>";
-?>
+
+
+
+
 
 

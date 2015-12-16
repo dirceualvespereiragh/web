@@ -32,9 +32,10 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="js/main.js"></script>
       
       
-  
       
     <script src="library/RGraph/libraries/RGraph.common.core.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.common.key.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.drawing.rect.js" ></script>      
     <script src="library/RGraph/libraries/RGraph.common.tooltips.js" ></script>
     <script src="library/RGraph/libraries/RGraph.common.dynamic.js" ></script>
     <script src="library/RGraph/libraries/RGraph.pie.js" ></script>
@@ -171,7 +172,7 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                                 
                                 <span class="glyphicon glyphicon-user"></span>
                                 
-                                Gerenciar Usuários
+                                Clientes
                             </a>
                         </h4>
                     </div>
@@ -247,13 +248,17 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
             
                 <div class="conteudo_painel">                    
                     <div  class="conteudo_painel_int">
-                        
+                        <div class="col-sm-6">
                         <ul class="nav nav-pills" role="tablist">
                             <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge">   </span></a></li>
                             <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
                         </ul>
-                        
-                        
+                        </div>
+                        <div class="col-sm-6">
+                           <a href="#"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca"  ></i></a>                
+<!--                           <p> Busca: <span class="glyphicon glyphicon-search"></span></p>-->
+                           <input type="text" id="TextoParaBusca" name="TextoParaBusca" class="form-control">
+                        </div>
                         <script>
                            var selector = '.nav li';
                            $(selector).on('click', function(){
@@ -262,38 +267,38 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                            });
                         </script>        
                         
-                        <div class="well well-sm">
+                        <div class="well well-sm col-sm-12">
                             <h4>Chamados</h4>
                         </div>
                         <div id="miolo">
-  <script>
-     function minhaFuncao() {
-        document.getElementById("status").value = '2';
-     }
-   </script>      
+                        <script>
+                           function minhaFuncao() {
+                              document.getElementById("status").value = '2';
+                           }
+                        </script>      
                             
-  <script>
-     function completar() {
-         var Hoje = new Date();
-         var dia = Hoje.getDate();
-         var mes = Hoje.getMonth()+1; //January is 0!
-         var ano = Hoje.getFullYear();
-         if(dia<10) {
-             dia='0'+dia
-         } 
+                        <script>
+                             function completar() {
+                                 var Hoje = new Date();
+                                 var dia = Hoje.getDate();
+                                 var mes = Hoje.getMonth()+1; //January is 0!
+                                 var ano = Hoje.getFullYear();
+                                 if(dia<10) {
+                                     dia='0'+dia
+                                 } 
 
-         if(mes<10) {
-             mes='0'+mes
-         } 
-      
-         hoje = dia+'/'+mes+'/'+ano;     
-         if (document.getElementById("queixa").innerHTML.trim() == ''  ){
-            document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
-         }else{
-            document.getElementById("complemento").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
-         }
-     }
-   </script>      
+                                 if(mes<10) {
+                                     mes='0'+mes
+                                 } 
+
+                                 hoje = dia+'/'+mes+'/'+ano;     
+                                 if (document.getElementById("queixa").innerHTML.trim() == ''  ){
+                                    document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
+                                 }else{
+                                    document.getElementById("complemento").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
+                                 }
+                             }
+                        </script>      
                             
                             
                             
@@ -328,28 +333,28 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                         </script>
                             
                             
-  <?php
-if (isset($_POST['action'])) {
-    switch ($_POST['action']) {
-        case 'FecharChamado':
-            insert();
-            break;
-        case 'select':
-            select();
-            break;
-    }
-}
+                      <?php
+                         if (isset($_POST['action'])) {
+                            switch ($_POST['action']) {
+                               case 'FecharChamado':
+                                   insert();
+                                   break;
+                               case 'select':
+                                   select();
+                                   break;
+                            }
+                         }
 
-function select() {
-    echo "The select function is called.";
-    exit;
-}
+                         function select() {
+                            echo "The select function is called.";
+                            exit;
+                         }
 
-function insert() {
-    echo "The insert function is called.";
-    exit;
-}
-?>                            
+                         function insert() {
+                            echo "The insert function is called.";
+                            exit;
+                         }
+                     ?>                            
       
                         <fieldset style="padding: 5px;">  
                             <div id="dados">
@@ -360,11 +365,6 @@ function insert() {
                                 ?>
                             </div>
                         </fieldset>
-                            
-                            
-                            
-                            
-                            
                             
                         </div>    
                 
@@ -484,7 +484,7 @@ function insert() {
                     </div>
                    
                     <div class="modal-body" id="graficotipo">
-                       <p> <h3 > Chamado  </h3></p>
+                       <span> <h3>Chamado</h3> </span>
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
 
                            <script>
