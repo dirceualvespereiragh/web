@@ -32,7 +32,15 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="js/main.js"></script>
       
       
+  
       
+    <script src="library/RGraph/libraries/RGraph.common.core.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.common.tooltips.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.common.dynamic.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.pie.js" ></script>
+    <script src="library/RGraph/libraries/RGraph.common.effects.js"></script>
+      
+<!--    <script src="library/RGraph/libraries/RGraph.common.effects.js"></script>
     <script src="library/RGraph/RGraph.common.core.js" ></script>
     <script src="library/RGraph/RGraph.common.annotate.js" ></script>
     <script src="library/RGraph/RGraph.common.context.js" ></script>
@@ -41,7 +49,7 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="library/RGraph/libraries/RGraph.bar.js" ></script>
     <script src="library/RGraph/libraries/RGraph.common.dynamic.js"></script>
     <script src="library/RGraph/libraries/RGraph.pie.js"></script>        
-      
+-->      
   </head>
   <body>
      
@@ -480,6 +488,19 @@ function insert() {
                        <canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>
 
                            <script>
+                                function DetalheTipoChamado (e, shape)
+                                {
+                                    // If you have multiple charts on your canvas the .__object__ is a reference to
+                                    // the last one that you created
+                                    var obj   = e.target.__object__
+
+                                    var index = shape['index'];
+                                    var value = obj.data[index];
+
+                                    alert('Value is: ' + value);
+                                }                               
+                               
+                               
                                 var Form        = document.getElementById('formulario');
                                 var DataInicial = document.getElementById('DataGraficoInicio');
                                 var DataFinal   = document.getElementById('DataGraficoTipoFim');

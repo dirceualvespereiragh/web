@@ -11,25 +11,28 @@
    $Registros = Chamados::GraficoTipoChamado($DataInicial,$DataFinal);
 
    $Separador = "";
-echo '<canvas  style="padding-left:55px;"  id="cvs" width="580" height="350"  > [No canvas support] </canvas>';
+echo '<canvas  style="padding-left:15px;"  id="cvs" width="780" height="450"  > [No canvas support] </canvas>';
 echo "<script>";
+  
 
-   echo "var hints = [";
+
+   echo "var labels = [";
    foreach($Registros as $record)
    {   
-      echo  $Separador . "'" . $record['Tipo'] . "'" ; 
+      echo  $Separador . "'" . $record['Tipo'] . "-" . $record['Qtde'] . "'" ; 
       $Separador = ",";   
    }
    echo "];";
 
    $Separador = "";
-   echo "var labels = [";
+   echo "var hints = [";
    foreach($Registros as $record)
    {   
       echo  $Separador . "'" . $record['Qtde'] . "'" ; 
       $Separador = ",";   
    }
    echo "];";
+
 
    $Separador = "";
    echo "var dados = [";
@@ -43,14 +46,27 @@ echo "<script>";
    echo "  id: 'cvs',                       ";
    echo "  data: dados ,                    ";
    echo "  options: {                       ";
-   echo "    tooltips: hints,              ";
-   echo " key: ['Folha: 34%','SagAPa: 28%' ],";
-   echo "    labels: hints,                 ";
-   echo "    shadow: false,                 ";
-   echo "    strokestyle: 'rgba(0,0,0,0)',  ";
-   echo "    exploded: 3                    ";
+   echo "      strokestyle: '#e8e8e8',   ";
+   echo "      variant: 'pie3d', ";
+   echo "      linewidth: 2,  ";
+   echo "      shadowOffsetx: 0,  ";
+   echo "      shadowOffsety: 15,  ";
+   echo "      shadowColor: '#aaa',  ";
+   echo "      exploded: 10,  ";
+   echo "      radius: 80,";
+   echo "      labels: labels,     ";
+   echo "      labelsSticks: true,";
+   echo "      labelsSticksLength: 15 ,";
+   echo "      eventsClick: DetalheTipoChamado, ";
+   echo "      eventsMousemove: function (e, shape) {e.target.style.cursor = 'pointer';}";
    echo "  }                                ";
    echo "}).draw();                         ";
+
+
+
+  
+
 echo "</script>";
 ?>
+
 
