@@ -187,3 +187,13 @@ img.grayscale:hover {
 .conteudo_painel_int {
     padding: 12px;   
 }
+
+#TextoParaBusca{
+ display: inline; 
+}
+
+#abre{
+	display:inline; 
+	margin:0px 0px 0px -20px;
+}
+	

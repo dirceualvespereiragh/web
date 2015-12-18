@@ -1,8 +1,8 @@
 <?php
-require 'autoload.php';
-require 'seguranca.php';
-use Entidade\Chamados;
-$posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
+    require 'autoload.php';
+    require 'seguranca.php';
+    use Entidade\Chamados;
+    $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -31,8 +31,6 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="js/bootstrap.min.js"></script>
     <script src="js/main.js"></script>
       
-      
-      
     <script src="library/RGraph/libraries/RGraph.common.core.js" ></script>
     <script src="library/RGraph/libraries/RGraph.common.key.js" ></script>
     <script src="library/RGraph/libraries/RGraph.drawing.rect.js" ></script>      
@@ -40,63 +38,9 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
     <script src="library/RGraph/libraries/RGraph.common.dynamic.js" ></script>
     <script src="library/RGraph/libraries/RGraph.pie.js" ></script>
     <script src="library/RGraph/libraries/RGraph.common.effects.js"></script>
-      
-<!--    <script src="library/RGraph/libraries/RGraph.common.effects.js"></script>
-    <script src="library/RGraph/RGraph.common.core.js" ></script>
-    <script src="library/RGraph/RGraph.common.annotate.js" ></script>
-    <script src="library/RGraph/RGraph.common.context.js" ></script>
-    <script src="library/RGraph/RGraph.common.tooltips.js" ></script>
-    <script src="library/RGraph/RGraph.common.resizing.js" ></script>
-    <script src="library/RGraph/libraries/RGraph.bar.js" ></script>
-    <script src="library/RGraph/libraries/RGraph.common.dynamic.js"></script>
-    <script src="library/RGraph/libraries/RGraph.pie.js"></script>        
--->      
   </head>
   <body>
      
-<!-- pesquisar no PHP [code]   [/code] -->
-      
-<?php      
-//      if (isset($_POST['SalvarChamado'])) { 
-//           $tipo        = $_POST['tipo'];
-//           $queixa      = $_POST['queixa'];
-//           $cliente     = $_POST['cbClientes'];
-//           $pendente    = $_POST['pendente'];
-//           $solicitante = $_POST['solicitante'];
-//           $responsavel = $_SESSION['usuario'] ;
-//           $sql = "INSERT INTO chamados ";
-//           $sql = $sql . "(RESPONSAVEL, SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA, DT_ABERTURA) VALUES";
-//           $sql = $sql . "(' $pendente ',' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ', now()) ";
-//           require_once('json/conexao.php'); 
-//           $pdo = Conectar(); 
-//           $stm = $pdo->prepare($sql); 
-//           $stm->execute(); 
-//           sleep(1); 
-//           $pdo = null;	          
-//      }  
-      //if (isset($_POST['EditarChamado'])) { 
-        //   $tipo        = $_POST['tipo'];
-        //   $queixa      = $_POST['queixa'];
-        //   $cliente     = $_POST['cbClientes'];
-        //   $pendente    = $_POST['cbpendente'];
-        //   $solicitante = $_POST['solicitante'];
-        //   $sql = "UPDATE  chamados ";
-        //   $sql = $sql . "(SOLICITANTE, QUEIXA, NOME_CONS, ESTATISTICA) VALUES";
-        //   $sql = $sql . "(' $solicitante ',' $queixa ',' $cliente  ' ,'  $tipo   ') ";
-        //   $sql = $sql . "WHERE CODIGO = " . 
-        //   require_once('json/conexao.php'); 
-        //   $pdo = Conectar(); 
-        //   $stm = $pdo->prepare($sql); 
-        //   //$stm->execute(); 
-        //  echo $sql;
-        //  echo $_POST[$teste] ;
-        //   sleep(1); 
-        //   $pdo = null;	          
-      //}
-?>  
-      
-      
-      
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
           <div class="container-fluid">
             <div class="navbar-header">
@@ -146,25 +90,6 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                     </div>
                 </div>                
                 
-<!--                <div class="panel panel-primary">
-                    <div id="colGroup1" role="tab" class="panel-heading">
-                        <h4 class="panel-title">
-                            <a href="#colListGroup1" aria-controls="colListGroup1" aria-expanded="false" data-toggle="collapse">
-                                <span class="glyphicon glyphicon-file"></span>
-                                Gerenciar Chamados
-                            </a>
-                        </h4>
-                    </div>
-                    <div role="tabpanel" class="panel-collapse collapse" id="colListGroup1" aria-expanded="false">
-                        <ul id="menuchamados" class="list-group">
-                            <li  class="list-group-item"><a href="ChamadoNovo2.php">Criar</a></li>
-                            
-                            <li class="list-group-item"><a href="EditarChamado.php?cadastro=chamados&chave=0">Alterar</a></li>
-                            <li class="list-group-item"><a href="#">Excluir</a></li>
-                        </ul>
-                        <div class="panel-footer"></div>
-                    </div> 
-                </div> -->
                 <div class="panel panel-primary">
                     <div id="colGroup1" role="tab" class="panel-heading">
                         <h4 class="panel-title">
@@ -254,11 +179,56 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                             <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
                         </ul>
                         </div>
-                        <div class="col-sm-6">
-                           <a href="#"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca"  ></i></a>                
-<!--                           <p> Busca: <span class="glyphicon glyphicon-search"></span></p>-->
-                           <input type="text" id="TextoParaBusca" name="TextoParaBusca" class="form-control">
+                        
+                        <div class="col-sm-5" id="divBusca" >
+                           <input type="text" id="TextoParaBusca" name="TextoParaBusca" class="form-control"> 
+						   
                         </div>
+                        <div class="col-sm-1">
+                            <a id="abre" class="col-sm-offset-12 " role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapseBusca" aria-expanded="true" aria-controls="collapseBusca">
+						    <i class="glyphicon glyphicon-triangle-bottom"></i></a>
+
+                            <a href="#"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca"  ></i></a>  
+                        </div>
+                        
+                        <div  class="col-sm-offset-6 col-sm-6 conteudo_painel_int">
+                            <div class="panel-group" id="accordion"  role="tablist"  >
+                                <div class="panel panel-default">
+                                    
+                                    <div id="collapseBusca" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                       <div class="col-sm-offset-6 col-sm-6 panel-body">
+
+                                           <div class="col-sm-offset-2 col-sm-4">
+                                             <span> de:</span>
+                                             <input type="date" id="DataBuscaFim" name="DataBuscaFim" class="form-control">
+                                           </div>
+                                           <div class="col-sm-offset-2 col-sm-4">
+                                             <span> até:</span>
+                                             <input type="date" id="DataBuscaInicio" name="DataBuscaInicio" class="form-control">
+                                           </div>
+
+                                           <div class="forrm-group"> 
+                                                <div class="col-sm-offset-2  col-sm-5">
+                                                    <span>Tipo :</span>
+                                                    <select class="form-control" id="tipo" name="tipo">
+                                                        <option value="Atividade Interna" >1 - Atividade Interna</option>
+                                                        <option value="2" >2 - </option>
+                                                        <option value="3" >3 - </option>
+                                                        <option value="4" >4 - </option>
+                                                        <option value="5" >5 - </option>
+                                                        <option value="6" >6 - </option>
+                                                        <option value="7" >7 - </option>
+                                                        <option value="Outros" >8 - Outros</option>
+                                                    </select> 
+                                                </div>
+                                           </div>
+
+                                       </div>      
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                                      
+
                         <script>
                            var selector = '.nav li';
                            $(selector).on('click', function(){
@@ -319,11 +289,6 @@ $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1);
                             //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
                         ?>
 
-                        <!-- Função utilizando JQUERY que faz a paginação dos dados,
-                             Nesta função é enviado, utilizando o médodo post do jquery, três informações a página op.php, são eles
-                             página que se deseja exibir, quantidade de páginas e quantidade de resultado por página
-                             no retorno oconteudo da div dados será trocado pelo conteúdo retornado.  
-                        -->
                         <script type="text/javascript">
 
                             function paginar(pagina,paginas, qtde_resultados , posicao){
