@@ -21,24 +21,37 @@ class Chamados extends EntidadeAbstrata
         return 'codigo';
     }
         
-    public static function quantos()
+    public static function quantos($posicao, $where)
     {
-        $resultSet = self::getPdo()->query('SELECT COUNT(codigo)  AS total FROM  chamados');
-        
+        if (  !(isset($posicao)) and !(isset($where)) ) {
+           $sql = 'SELECT COUNT(codigo)  AS total FROM  chamados';
+        }
+        if (isset($posicao))  {
+           $sql = 'SELECT COUNT(codigo)  AS total FROM  chamados' . ' WHERE POSICAO = ' . $posicao ;
+        }
+        if ( (isset($where)) and ($where != '' ) ) {
+           $sql = 'SELECT COUNT(codigo)  AS total FROM  chamados WHERE ' . $where ;
+        }
+      /*  throw new \Exception($sql); */
+        $resultSet = self::getPdo()->query($sql);
         $records = $resultSet->fetchColumn(0); 
             
         return $records;
     }
 
-    public static function listar($pagina,$qtde_resultados_por_pagina,$paginas,$posicao)
+    public static function listar($pagina,$qtde_resultados_por_pagina,$paginas,$posicao, $where)
     {
         // calculando onde o limit deve começar no Select
         $inicio = ($pagina-1) * $qtde_resultados_por_pagina;
         
         $pdo = self::getPdo();
         $pdo->query("SET NAMES 'utf8'"); 
-        
-        $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' WHERE POSICAO = ' . $posicao . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        if ($where == '') {
+           $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' WHERE POSICAO = ' . $posicao . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+        } else {
+           $resultSet = $pdo->query('SELECT codigo,queixa,nome_cons as cliente,estatistica as tipo,pendente,solicitante FROM '. static::$tabela . ' WHERE ' . $where . ' order by dt_abertura desc limit ' . $inicio . ' , ' . $qtde_resultados_por_pagina ); 
+            
+        }
         
         $records = $resultSet->fetchAll();
     

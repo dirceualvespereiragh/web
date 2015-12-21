@@ -3,6 +3,7 @@
     require 'seguranca.php';
     use Entidade\Chamados;
     $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
+    $where   = ''; 
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -114,59 +115,6 @@
             <!-- /.menu navegação lateral -->
         
 
-        
-
-            <script>
-               var xmlhttp = new XMLHttpRequest();
-               var url = "json/QuantosChamados.php?posicao=1";
-               xmlhttp.onreadystatechange=function() 
-               {
-                  if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    myFunction(xmlhttp.responseText);
-                  }
-               }
-               xmlhttp.open("GET", url, true);
-               xmlhttp.send();
-               function myFunction(response) {
-                  var arr = JSON.parse(response);
-                  var i;
-                  var out = "";
-
-                  for(i = 0; i < arr.length; i++) {
-                     out +=  arr[i].TotalChamados ;
-                  }
-                  $totalaberto = out;
-                  document.getElementById("idChamadosAbertos").innerHTML = out;
-               }
-            </script>
-
-
-            <script>
-              
-               var xmlhttp2 = new XMLHttpRequest();
-               var url = "json/QuantosChamados.php?posicao=2";
-               xmlhttp2.onreadystatechange=function() 
-               {
-                  if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
-                    myFunction2(xmlhttp2.responseText);
-                  }
-               }
-               xmlhttp2.open("GET", url, true);
-               xmlhttp2.send();
-               function myFunction2(response) {
-                  var arr = JSON.parse(response);
-                  var i;
-                  var out2 = "";
-
-                  for(i = 0; i < arr.length; i++) {
-                     out2 +=  arr[i].TotalChamados ;
-                  }
-                     
-                  $totalfechado = out2;
-                  document.getElementById("idChamadosFechados").innerHTML = out2;
-               }
-            </script>
-
 
 
             <div class="col-sm-10">
@@ -175,8 +123,8 @@
                     <div  class="conteudo_painel_int">
                         <div class="col-sm-6" style="padding: 5px;">
                             <ul class="nav nav-pills" role="tablist">
-                                <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge">   </span></a></li>
-                                <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
+                                <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge"> <?= Chamados::quantos(1,'') ?>  </span></a></li>
+                                <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">  <?= Chamados::quantos(2,'') ?>  </span></a></li>
                             </ul>
                         </div>
                         
@@ -274,19 +222,11 @@
                             
                             
                             <?php
-                                include 'json/parametros.php';
-                                //primeiro select com um contador para saber quantos resultados serão exibidos
-
-                                $result_p =  mysql_query("select count(codigo) as total FROM chamados where posicao = " . $posicao);
-                                $rs =  mysql_fetch_array($result_p) ;
-                                $row_p = $rs["total"];
-                                //quantidade de resultados por página
+                                $row_p = Chamados::quantos($posicao,'');
                                 $qtde_resultados = 25;
                                 $pagina = 1;
                                 //calculando quantidade de páginas
                                 $paginas = ceil($row_p / $qtde_resultados);
-                                // segundo select com os valores já limitados pelo limite no sql
-                                //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
                             ?>
 
                             <script type="text/javascript">
@@ -295,10 +235,12 @@
                                    $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
                                 }
                                 function Buscar(){
+                                    var Texto       = document.getElementById('TextoParaBusca');
+                                    var pagina      = 1;
                                     var DataInicial = document.getElementById('DataBuscaInicio'); 
                                     var DataFinal   = document.getElementById('DataBuscaFim'); 
                                     $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
-                                    $.post("BuscaChamado.php", {DataInicial:DataInicial.value, DataFinal:DataFinal.value}, function(data){$("#dados").html(data);}, "html") ;
+                                    $.post("BuscaChamado.php", {Texto:Texto.value, pagina:pagina,DataInicial:DataInicial.value, DataFinal:DataFinal.value}, function(data){$("#dados").html(data);}, "html") ;
                                 }
 
                             </script>
