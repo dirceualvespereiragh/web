@@ -185,7 +185,12 @@ img.grayscale:hover {
 }
 
 .conteudo_painel_int {
-    padding: 12px;   
+    padding: 10px;   
+}
+
+
+.conteudo_painel_busca {
+    margin:-5px 0px 0px 0px;   
 }
 
 #TextoParaBusca{
@@ -194,6 +199,6 @@ img.grayscale:hover {
 
 #abre{
 	display:inline; 
-	margin:0px 0px 0px -20px;
+	margin:0px 0px 0px -50px;
 }
 	

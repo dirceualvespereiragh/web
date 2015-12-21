@@ -3,6 +3,16 @@
     require 'seguranca.php';
     use Entidade\Chamados;
     $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
+    if ($posicao == 3){
+        $posicao = 1;
+        echo "<script>";
+        echo "   var fDataBuscaInicio = document.getElementById('DataBuscaInicio');";
+        echo "   var fDataBuscaoFim   = document.getElementById('DataBuscaFim');";
+        echo " alert(fDataBuscaInicio);";
+        echo "</script>";
+        
+
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -173,11 +183,11 @@
             
                 <div class="conteudo_painel">                    
                     <div  class="conteudo_painel_int">
-                        <div class="col-sm-6">
-                        <ul class="nav nav-pills" role="tablist">
-                            <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge">   </span></a></li>
-                            <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
-                        </ul>
+                        <div class="col-sm-6" style="padding: 5px;">
+                            <ul class="nav nav-pills" role="tablist">
+                                <li class="<?php if ($posicao == '1'){ echo 'active';} ?> "><a href="painel.php?posicao=1">Chamados Abertos <span id="idChamadosAbertos"  class="badge">   </span></a></li>
+                                <li class="<?php if ($posicao == '2'){ echo 'active';} ?> "><a href="painel.php?posicao=2">Chamados Fechados <span id="idChamadosFechados" class="badge">   </span></a></li>
+                            </ul>
                         </div>
                         
                         <div class="col-sm-5" id="divBusca" >
@@ -185,49 +195,51 @@
 						   
                         </div>
                         <div class="col-sm-1">
-                            <a id="abre" class="col-sm-offset-12 " role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapseBusca" aria-expanded="true" aria-controls="collapseBusca">
+                            <a id="abre"  role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapseBusca" aria-expanded="true" aria-controls="collapseBusca">
 						    <i class="glyphicon glyphicon-triangle-bottom"></i></a>
-
-                            <a href="#"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca"  ></i></a>  
+                            <a href="painel.php?posicao=3"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca" style="margin-left: 20px;" ></i></a>  
                         </div>
                         
-                        <div  class="col-sm-offset-6 col-sm-6 conteudo_painel_int">
+                       <div  class="col-sm-offset-6 col-sm-5 conteudo_painel_busca"> 
                             <div class="panel-group" id="accordion"  role="tablist"  >
                                 <div class="panel panel-default">
                                     
                                     <div id="collapseBusca" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                       <div class="col-sm-offset-6 col-sm-6 panel-body">
-
-                                           <div class="col-sm-offset-2 col-sm-4">
-                                             <span> de:</span>
-                                             <input type="date" id="DataBuscaFim" name="DataBuscaFim" class="form-control">
+                                       <div class="panel-body">
+                                           <div class="col-sm-offset-1 col-sm-8">
+                                              <span> <p>Busca avançada:</p></span>
                                            </div>
-                                           <div class="col-sm-offset-2 col-sm-4">
-                                             <span> até:</span>
-                                             <input type="date" id="DataBuscaInicio" name="DataBuscaInicio" class="form-control">
-                                           </div>
+                                           <form method="post">
+                                               <div class="col-sm-offset-1 col-sm-4">
 
-                                           <div class="forrm-group"> 
-                                                <div class="col-sm-offset-2  col-sm-5">
-                                                    <span>Tipo :</span>
-                                                    <select class="form-control" id="tipo" name="tipo">
-                                                        <option value="Atividade Interna" >1 - Atividade Interna</option>
-                                                        <option value="2" >2 - </option>
-                                                        <option value="3" >3 - </option>
-                                                        <option value="4" >4 - </option>
-                                                        <option value="5" >5 - </option>
-                                                        <option value="6" >6 - </option>
-                                                        <option value="7" >7 - </option>
-                                                        <option value="Outros" >8 - Outros</option>
-                                                    </select> 
-                                                </div>
-                                           </div>
-
+                                                 <span> de:</span>   
+                                                 <input type="date" id="DataBuscaInicio" name="DataBuscaInicio" class="form-control">
+                                               </div>
+                                               <div class="col-sm-offset-2 col-sm-4">
+                                                 <span> até:</span>
+                                                 <input type="date" id="DataBuscaFim" name="DataBuscaFim" class="form-control">
+                                               </div>
+                                               <div class="forrm-group"> 
+                                                    <div class="col-sm-offset-1  col-sm-8">
+                                                        <span>Tipo :</span>
+                                                        <select class="form-control" id="tipo" name="tipo">
+                                                            <option value="Atividade Interna" >1 - Atividade Interna</option>
+                                                            <option value="Contabilidade" >2 - Contabilidade</option>
+                                                            <option value="Financeiro" >3 - Financeiro </option>
+                                                            <option value="Folha" >4 - Folha</option>
+                                                            <option value="SagAP" >5 - SagAP</option>
+                                                            <option value="NFE" >6 - NFE</option>
+                                                            <option value="Programa de Terceiros" >7 - Programa de Terceiros</option>
+                                                            <option value="Outros" >8 - Outros</option>
+                                                        </select> 
+                                                    </div>
+                                               </div>
+                                           </form>
                                        </div>      
                                     </div>
                                 </div>
                             </div>
-                        </div>                                      
+                        </div>          
 
                         <script>
                            var selector = '.nav li';
@@ -240,111 +252,109 @@
                         <div class="well well-sm col-sm-12">
                             <h4>Chamados</h4>
                         </div>
-                        <div id="miolo">
-                        <script>
-                           function minhaFuncao() {
-                              document.getElementById("status").value = '2';
-                           }
-                        </script>      
+                        <div id="miolo" class="col-sm-12">
+                            <script>
+                               function minhaFuncao() {
+                                  document.getElementById("status").value = '2';
+                               }
+                            </script>      
                             
-                        <script>
-                             function completar() {
-                                 var Hoje = new Date();
-                                 var dia = Hoje.getDate();
-                                 var mes = Hoje.getMonth()+1; //January is 0!
-                                 var ano = Hoje.getFullYear();
-                                 if(dia<10) {
-                                     dia='0'+dia
-                                 } 
+                            <script>
+                                 function completar() {
+                                     var Hoje = new Date();
+                                     var dia = Hoje.getDate();
+                                     var mes = Hoje.getMonth()+1; //January is 0!
+                                     var ano = Hoje.getFullYear();
+                                     if(dia<10) {
+                                         dia='0'+dia
+                                     } 
 
-                                 if(mes<10) {
-                                     mes='0'+mes
-                                 } 
+                                     if(mes<10) {
+                                         mes='0'+mes
+                                     } 
 
-                                 hoje = dia+'/'+mes+'/'+ano;     
-                                 if (document.getElementById("queixa").innerHTML.trim() == ''  ){
-                                    document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
-                                 }else{
-                                    document.getElementById("complemento").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
+                                     hoje = dia+'/'+mes+'/'+ano;     
+                                     if (document.getElementById("queixa").innerHTML.trim() == ''  ){
+                                        document.getElementById("queixa").innerHTML =  'Chamado aberto em '+hoje;
+                                     }else{
+                                        document.getElementById("complemento").innerHTML +=  '\n Complemento de '+ "<?= ucfirst($_SESSION['usuario'])?>" + ' em '+hoje;
+                                     }
                                  }
-                             }
-                        </script>      
+                            </script>      
                             
                             
-                            
-                            
-                        <?php
-                            include 'json/parametros.php';
-                            //primeiro select com um contador para saber quantos resultados serão exibidos
-                         
-                            $result_p =  mysql_query("select count(codigo) as total FROM chamados where posicao = " . $posicao);
-                            $rs =  mysql_fetch_array($result_p) ;
-                            $row_p = $rs["total"];
-                            //quantidade de resultados por página
-                            $qtde_resultados = 25;
-                            $pagina = 1;
-                            //calculando quantidade de páginas
-                            $paginas = ceil($row_p / $qtde_resultados);
-                            // segundo select com os valores já limitados pelo limite no sql
-                            //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
-                        ?>
+                            <?php
+                                include 'json/parametros.php';
+                                //primeiro select com um contador para saber quantos resultados serão exibidos
 
-                        <script type="text/javascript">
+                                $result_p =  mysql_query("select count(codigo) as total FROM chamados where posicao = " . $posicao);
+                                $rs =  mysql_fetch_array($result_p) ;
+                                $row_p = $rs["total"];
+                                //quantidade de resultados por página
+                                $qtde_resultados = 25;
+                                $pagina = 1;
+                                //calculando quantidade de páginas
+                                $paginas = ceil($row_p / $qtde_resultados);
+                                // segundo select com os valores já limitados pelo limite no sql
+                                //$result =  mysql_query("select * FROM chamados limit 0 , " . $qtde_resultados);
+                            ?>
 
-                            function paginar(pagina,paginas, qtde_resultados , posicao){
-                               $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
-                               $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
-                            }
-                        </script>
+                            <script type="text/javascript">
+
+                                function paginar(pagina,paginas, qtde_resultados , posicao){
+                                   $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
+                                   $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
+                                }
+                            </script>
                             
                             
-                      <?php
-                         if (isset($_POST['action'])) {
-                            switch ($_POST['action']) {
-                               case 'FecharChamado':
-                                   insert();
-                                   break;
-                               case 'select':
-                                   select();
-                                   break;
-                            }
-                         }
+                            <?php
+                               if (isset($_POST['action'])) {
+                                  switch ($_POST['action']) {
+                                     case 'FecharChamado':
+                                         insert();
+                                         break;
+                                     case 'select':
+                                         select();
+                                         break;
+                                  }
+                               }
 
-                         function select() {
-                            echo "The select function is called.";
-                            exit;
-                         }
+                               function select() {
+                                  echo "The select function is called.";
+                                  exit;
+                               }
 
-                         function insert() {
-                            echo "The insert function is called.";
-                            exit;
-                         }
-                     ?>                            
+                               function insert() {
+                                  echo "The insert function is called.";
+                                  exit;
+                               }
+                            ?>                            
       
-                        <fieldset style="padding: 5px;">  
-                            <div id="dados">
-                                <?php
-                                   include 'tabelachamados.php';
-                                   include 'indice.php';
-                                   $pagina++;    
-                                ?>
-                            </div>
-                        </fieldset>
+                            <fieldset style="padding: 5px;">  
+                                <div id="dados">
+                                    <?php
+                                       include 'tabelachamados.php';
+                                       include 'indice.php';
+                                       $pagina++;    
+                                    ?>
+                                </div>
+                            </fieldset>
                             
                         </div>    
                 
+                        <div class="row col-sm-12">
+                            <div class="page-header"><h3>Avisos:</h3></div>
 
-                        <div class="page=header"><h3>Avisos:</h3></div>
-                        
-                        <div class="alert alert-success">
-                            <strong>Parabéns!</strong> Você foi recomendado!
+                            <div class="alert alert-success">
+                                <strong>Parabéns!</strong> Você foi recomendado!
+                            </div>
+
+                            <div class="alert alert-warning">
+                                <strong>Atenção:</strong> Você têm até o dia /01/01/2016 para ajustar suas tarefas!
+                            </div>
                         </div>
-                        
-                        <div class="alert alert-warning">
-                            <strong>Atenção:</strong> Você têm até o dia /01/01/2016 para ajustar suas tarefas!
-                        </div>
-                        
-                        <div class="row">
+                        <div class="row" >
                             <div class="col-sm-4">
                                 <h3>Minhas Tarefas</h3>
                                 <ul>
