@@ -3,16 +3,6 @@
     require 'seguranca.php';
     use Entidade\Chamados;
     $posicao =  (isset($_GET['posicao']) ? $_GET['posicao'] : 1); 
-    if ($posicao == 3){
-        $posicao = 1;
-        echo "<script>";
-        echo "   var fDataBuscaInicio = document.getElementById('DataBuscaInicio');";
-        echo "   var fDataBuscaoFim   = document.getElementById('DataBuscaFim');";
-        echo " alert(fDataBuscaInicio);";
-        echo "</script>";
-        
-
-    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -197,7 +187,7 @@
                         <div class="col-sm-1">
                             <a id="abre"  role="button"  data-toggle="collapse" data-parent="#accordion" href="#collapseBusca" aria-expanded="true" aria-controls="collapseBusca">
 						    <i class="glyphicon glyphicon-triangle-bottom"></i></a>
-                            <a href="painel.php?posicao=3"><i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca" style="margin-left: 20px;" ></i></a>  
+                            <a href="javascript:Buscar()"> <i class="fa fa-search fa-2x" data-toggle="modal" data-target="#Busca" style="margin-left: 20px;" ></i></a>  
                         </div>
                         
                        <div  class="col-sm-offset-6 col-sm-5 conteudo_painel_busca"> 
@@ -300,11 +290,17 @@
                             ?>
 
                             <script type="text/javascript">
-
                                 function paginar(pagina,paginas, qtde_resultados , posicao){
                                    $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
                                    $.post("op.php", {pagina:pagina, paginas:paginas, qtde_resultados:qtde_resultados, posicao:posicao}, function(data){$("#dados").html(data);}, "html") ;
                                 }
+                                function Buscar(){
+                                    var DataInicial = document.getElementById('DataBuscaInicio'); 
+                                    var DataFinal   = document.getElementById('DataBuscaFim'); 
+                                    $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
+                                    $.post("BuscaChamado.php", {DataInicial:DataInicial.value, DataFinal:DataFinal.value}, function(data){$("#dados").html(data);}, "html") ;
+                                }
+
                             </script>
                             
                             
