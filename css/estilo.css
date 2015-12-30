@@ -190,7 +190,7 @@ img.grayscale:hover {
 
 
 .conteudo_painel_busca {
-    margin:-5px 0px 0px 0px;   
+    margin:-1px 0px 0px 0px;   
 }
 
 #TextoParaBusca{
@@ -199,6 +199,6 @@ img.grayscale:hover {
 
 #abre{
 	display:inline; 
-	margin:0px 0px 0px -50px;
+	margin:0px 0px 0px -55px;
 }
 	

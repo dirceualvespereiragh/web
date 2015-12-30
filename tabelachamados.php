@@ -34,7 +34,10 @@ use Entidade\Chamados;
                                 </tr>
                             </thead>
                             <tbody data-link="row" class="rowlink">
-                                <?PHP
+                                <?PHP 
+                                    if (  !(isset($where)) ) {
+                                         $where = '';
+                                    }
                                     echo Chamados::listar($pagina,$qtde_resultados,$paginas,$posicao,$where);
                                 ?>
                             </tbody>

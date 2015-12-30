@@ -160,7 +160,7 @@
                                                <div class="forrm-group"> 
                                                     <div class="col-sm-offset-1  col-sm-8">
                                                         <span>Tipo :</span>
-                                                        <select class="form-control" id="tipo" name="tipo">
+                                                        <select class="form-control" id="Buscatipo" name="Buscatipo">
                                                             <option value="Atividade Interna" >1 - Atividade Interna</option>
                                                             <option value="Contabilidade" >2 - Contabilidade</option>
                                                             <option value="Financeiro" >3 - Financeiro </option>
@@ -239,8 +239,9 @@
                                     var pagina      = 1;
                                     var DataInicial = document.getElementById('DataBuscaInicio'); 
                                     var DataFinal   = document.getElementById('DataBuscaFim'); 
+                                    var Tipo        = document.getElementById('Buscatipo'); 
                                     $("#dados").html("<b> <img src='carregando.gif' alt='carregando' /></b>");
-                                    $.post("BuscaChamado.php", {Texto:Texto.value, pagina:pagina,DataInicial:DataInicial.value, DataFinal:DataFinal.value}, function(data){$("#dados").html(data);}, "html") ;
+                                    $.post("BuscaChamado.php", {Texto:Texto.value, pagina:pagina,DataInicial:DataInicial.value, DataFinal:DataFinal.value, Tipo:Tipo.value}, function(data){$("#dados").html(data);}, "html") ;
                                 }
 
                             </script>
